@@ -68,16 +68,37 @@ function enviar_datos_lotes(total){
  
                                               };
      
-     function enviar_datos_carromesa() {
+     function enviar_datos_carromesa(id_carrito,codigo_mesa) {
 
         $.ajax({
           type: "POST",
           url: "control_carro_mesa.jsp",
-          data: $("#formulario_carro_mesa").serialize(),
-          success: function(data) {
-         //   $('#contenido_reporte').html(data);
-                                    }
-        });
+          data: ({id_carrito:id_carrito,codigo_mesa:codigo_mesa}),
+          
+          
+          
+            beforeSend: function () {
+            Swal.fire({
+                title: 'PROCESANDO!',
+                html: '<strong>ESPERE</strong>...',
+                allowOutsideClick: false,
+                onBeforeOpen: () => {
+                    Swal.showLoading()
+                    timerInterval = setInterval(() => {
+                        Swal.getContent().querySelector('strong')
+                            .textContent = Swal.getTimerLeft()
+                    }, 1000); }
+                        });  },
+        success: function (data) {
+            $('#'+id_carrito+'').remove();
+                  
+                swal.fire({
+              type: 'success',
+              title: "REGISTRADO CON EXITO.",
+              confirmButtonText: "CERRAR" });     
+            } 
+            
+          });
 
        };  
      

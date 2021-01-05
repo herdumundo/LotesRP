@@ -60,10 +60,8 @@
        <td ><%=rs.getString(2)%></td> 
        <td><%=rs.getString(3)%></td>
        <td><%=rs.getString(4)%></td> 
-       <td><input  type='button' class="form-control   " data-toggle="modal" data-target="#modal_carromesa"   value="Agregar" 
-                  onclick="$('#codigo_carro').val('<%=rs.getString("cod_interno")%>');
-               $('#carro_numero_mesacarro').val('<%=rs.getString("cod_carrito")%>')
-        ;"/></td>
+       <td><input  type='button' class="form-control   "   value="Agregar" 
+                   onclick=" cuadro_registro('<%=rs.getString("cod_interno")%>','<%=rs.getString("cod_carrito")%>'); "/></td>
                
                
                 

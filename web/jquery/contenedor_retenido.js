@@ -193,16 +193,26 @@
                       }
                       
                       
-    function validar_carro_mesa() {
-                          
-    if ($('#codigo_mesa').val()==='') {
-        boton_animacion_validacion_carromesa();  
-        return false;
-        }
-    else{
+    function cuadro_registro(id_carrito,nro_carro) {
         
-        boton_animacion_eliminar();
-    }
+             Swal.fire
+    (
+            {
+                title: 'AGREGAR NRO MESA A CARRO NRO. '+ nro_carro,
+                type: 'warning',
+                html:  '<form id="form_carros_mesa"> \n\
+                        <input type="text" class=" form-control" placeholder="Codigo de mesa" id="txt_mesa" name="txt_mesa" required>\n\
+                        <br><br><br><input type="submit" class="form-control bg-success" value="REGISTRAR" id="btn_reg">  \n\
+                        </form>',
+                showCancelButton: false,
+                showConfirmButton: false
+            }
+    );
+        
+    $('#form_carros_mesa').on('submit', function(e){ e.preventDefault(); enviar_datos_carromesa(id_carrito,$('#txt_mesa').val()); });   
+        
+         
+       
     
 }
 

@@ -58,34 +58,7 @@
                 
                 
             </div>
-    
-    
-      <div class="modal fade" id="modal_carromesa" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static"   data-keyboard="false">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-           <div >
-                <a>INGRESAR NUMERO DE MESA AL CARRO NRO:</a><input type="button"  id="carro_numero_mesacarro" name="carro_numero_mesacarro" >   
-                <br>       <br>       
-                <input type="text" class=" form-control" style="display: none"   id="codigo_carro" name="codigo_carro" required > 
-             </div>
-             <div >
-                  <input type="text" class=" form-control" placeholder="Codigo de mesa" id="codigo_mesa" name="codigo_mesa" required>
-                 <br>       
-            </div>
-             <div >
-                 <button type="button" id="boton_reg" class=" form-control btn btn-primary" onclick="validar_carro_mesa();">Registrar </button>
-           </div><br><br>
-          
-           
-        
- 
-                  <div > 
-            <button class="form-control btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-           
-         </div>
-        </div>
-      </div>
-    </div>
+     
     
     
 </form>

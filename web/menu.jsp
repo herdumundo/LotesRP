@@ -148,13 +148,13 @@
     <script src="plugins/gijgo-combined-1.9.11/js/popper.min.js" type="text/javascript"></script>
     <script src="jquery/multiselect.js"></script>
     <script src="jquery/efecto_carga.js"></script>
-    <script src="filtro/filtro_eliminar.js?v=1.0.3" type="text/javascript"></script>
-    <script src="jquery/traer_clases.js?v=1.0.3" type="text/javascript"></script>
-    <script src="jquery/enviar_datos.js?v=1.0.3" type="text/javascript"></script>
-    <script src="jquery/formulas.js?v=1.0.3" type="text/javascript"></script>
-    <script src="jquery/contenedor_retenido.js?v=1.0.3" type="text/javascript"></script>
-    <script src="jquery/animacion_retenido.js?v=1.0.3" type="text/javascript"></script>
-    <script src="jquery/eliminar_fila_grilla.js?v=1.0.3" type="text/javascript"></script>
+    <script src="filtro/filtro_eliminar.js?v=1.0.4" type="text/javascript"></script>
+    <script src="jquery/traer_clases.js?v=1.0.4" type="text/javascript"></script>
+    <script src="jquery/enviar_datos.js?v=1.0.4" type="text/javascript"></script>
+    <script src="jquery/formulas.js?v=1.0.4" type="text/javascript"></script>
+    <script src="jquery/contenedor_retenido.js?v=1.0.4" type="text/javascript"></script>
+    <script src="jquery/animacion_retenido.js?v=1.0.4" type="text/javascript"></script>
+    <script src="jquery/eliminar_fila_grilla.js?v=1.0.4" type="text/javascript"></script>
     <script type="text/javascript"   src="jquery/grilla_2.js"></script>
     <script src="jquery/jquery.preloaders.js" type="text/javascript"></script>
     <script src="jquery/contenedor_reproceso.js" type="text/javascript"></script>
