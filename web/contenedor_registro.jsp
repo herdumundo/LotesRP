@@ -173,7 +173,7 @@
                
                  <%  
 	                                                                                                                                                                                                                                                                                                                                                                                                           //CAMBIAR BASE DE DATOS       
-        ResultSet rs1 = fuente.obtenerDato("select * from fallas with(nolock) where area in ('ccho','"+area_format+"') and tipo in ('rep')");
+        ResultSet rs1 = fuente.obtenerDato("select * from fallas with(nolock) where area in ('ccho','"+area_format+"') and tipo in ('rep') and estado='A'");
        while(rs1.next()){
            
                 
@@ -196,7 +196,7 @@
                
                  <%  
 	                                                                                                                                                                                                                                                                                                                                                                                                           //CAMBIAR BASE DE DATOS       
-        ResultSet rs3 = fuente.obtenerDato("select * from fallas  with(nolock) where area in ('ccho','"+area_format+"') and tipo in ('sub')");
+        ResultSet rs3 = fuente.obtenerDato("select * from fallas  with(nolock) where area in ('ccho','"+area_format+"') and tipo in ('sub') and estado='A'");
        while(rs3.next()){
            
                 
@@ -219,7 +219,7 @@
             <OPTION value="-" selected >Zona</OPTION>
                <%  
 	                                                                                                                                                                                                                                                                                                                                                                                                               //CAMBIAR BASE DE DATOS       
-        ResultSet rs2 = fuente.obtenerDato("select * from fallas with(nolock) where area in ('ccho','"+area_format+"') and tipo in ('rot', 'ROS')");
+        ResultSet rs2 = fuente.obtenerDato("select * from fallas with(nolock) where area in ('ccho','"+area_format+"') and tipo in ('rot', 'ROS') and estado='A'");
        while(rs2.next()){
            
                 
