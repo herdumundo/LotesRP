@@ -6,10 +6,10 @@
 
 <%@page import="javax.swing.JOptionPane"%>
 <%@page import="java.sql.*"%>
-<%@include  file="chequearsesion.jsp" %>
+<%@include  file="../chequearsesion.jsp" %>
 <jsp:useBean id="conexion" class="clases.bdconexion1" scope="page" />
 <jsp:useBean id="fuente" class="clases.fuentedato" scope="page"/>
-     <body>
+ 
         <%
     String usuario                     = (String) sesionOk.getAttribute("usuario");
     Connection cn = conexion.crearConexion();
@@ -27,5 +27,4 @@
       
        %>
           
-    </body>
-</html>
+     

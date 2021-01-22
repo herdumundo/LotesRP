@@ -21,7 +21,7 @@
 </head>
 
  <body onload="traer_menu('<%=perfil%>');">   <!-- Navigation-->
-  
+     <input type="hiden" id="perfil" value="<%=perfil%>">
    
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
      
@@ -50,15 +50,12 @@
   </nav>
    
     <div class="container-fluid">
-      <!-- Breadcrumbs-->
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item">
-          <a href="#">Menú</a>
-        </li>
-        <li class="breadcrumb-item active">REGISTRO DE CARROS</li>
-      </ol>
       
+    
       
+      <br>
+      <br>
+      <br>
      
   
       <div   id="contenido" class="row">
@@ -66,30 +63,11 @@
        </div>
       
        
-      <div id="contenido_2" style="display:none ">
+      <div id="contenido_registros">
         
        </div>
       
-       <div id="contenido_reporte" style="display:none ">
         
-       </div> 
-      
-     
-      <div id="contenido_visualizar" style="display:none ">
-     
-       </div>
-       
-       <div id="contenido_password" style="display:none ">
-        
-       </div>
-      
-       <div id="contenido_retenido" style="display:none ">
-        
-       </div>   
-      
-      <div id="contenido_eliminar" style="display:none ">
-          </div>
-      
        
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
@@ -123,7 +101,7 @@
     <script src="estilos/js/sb-admin-datatables.min.js"></script>
      <script src="plugins/gijgo-combined-1.9.11/js/popper.min.js" type="text/javascript"></script>
     <script src="jquery/multiselect.js"></script>
-      <script src="jquery/traer_clases.js?v=1.0.4" type="text/javascript"></script>
+      <script src="jquery/traer_clases.js?v=1.0.6" type="text/javascript"></script>
      <script src="jquery/formulas.js?v=1.0.4" type="text/javascript"></script>
   
     </div> 

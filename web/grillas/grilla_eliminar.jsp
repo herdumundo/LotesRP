@@ -10,9 +10,14 @@ String user_name = (String) sesionOk.getAttribute("nombre_usuario");
  <jsp:useBean id="fuente" class="clases.fuentedato" scope="page"/>
  
  <form method="post" id="formulario_eliminar">
-              <thead>
+           
+     <table  id="grilla_eliminar" class="table"  data-row-style="rowStyle" data-toggle="table" data-click-to-select="true">
+             
+         
+     
+     <thead>
                    
-               
+         <tr>
                 <th  >
                   Nro carro
                 </th>
@@ -27,7 +32,7 @@ String user_name = (String) sesionOk.getAttribute("nombre_usuario");
                     </th>
                   <th>
                   ACCION
-                </th>   
+                </th>  </tr> 
               </thead>
               <tbody id="grilla_eliminar">
                   <%
@@ -79,7 +84,7 @@ tipohuevo=rs.getString("tipo_huevo");
 
  %>  
     
-     
+   
     <tr id="<%=rs.getString("cod_interno")%>">  
         
        <td id="nro_carro"><%=rs.getString("cod_carrito")%></td>
@@ -89,7 +94,7 @@ tipohuevo=rs.getString("tipo_huevo");
              <td>
             
 
-                 <input type="button"  onclick="validacion_eliminacion('<%=rs.getString("cod_interno")%>','<%=rs.getString("cod_carrito")%>')" class="btn btn-danger " value="Eliminar">
+         <input type="button"  onclick="validacion_eliminacion('<%=rs.getString("cod_interno")%>','<%=rs.getString("cod_carrito")%>')" class="btn btn-danger " value="Eliminar">
    
      
     
@@ -97,10 +102,10 @@ tipohuevo=rs.getString("tipo_huevo");
     
    
                                 </td>  
-                <%}%>   </tr> </tbody>   
+                   </tr><%}%> </tbody>   
         
        </form>
-        
+         </table>
               
               
                

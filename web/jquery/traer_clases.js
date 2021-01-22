@@ -4,7 +4,7 @@
   var ruta_consultas="./consultas/";
  $(document).ready(function(){
      no_volver_atras();
-     traer_menu();
+     traer_menu($('#perfil').val());
  });
  function no_volver_atras(){
 
@@ -13,185 +13,138 @@
    window.onhashchange=function(){window.location.hash="no-back-button";}
  
 }
-        function filtrar_grilla_retenido (){
-                     $("#buscar_retenido").on("keyup", function() {
-                     var value = $(this).val().toLowerCase();
-                     $("#tabla_retenido tr").filter(function() {
-                     $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-                        });
-                       });
-                      }
-        function setear_grilla(){     
-                      var arr = $('[name="checks[]"]:checked').map(function(){
-                      return this.value;
-                        }).get();
-                      var resultado_seleccionado = arr.join(',');
+    function traer_menu(perfil){
+        $.get(ruta_contenedores+'contenedor_menu.jsp',function(res){
+        $("#contenido").html(res);
+        $("#contenido").show();
+        $("#contenido_registros").html('');
+        if(perfil=="U"){
+         $('#div_panel').hide();  
+        }
+        else if(perfil=="A") {
+         $('#div_panel').show();  
+        }
+   });
+    }
+    
+    function traer_eliminar(){
+        $.get(ruta_contenedores+'contenedor_eliminar.jsp',function(res){
+        $("#contenido_registros").html('');
+        $("#contenido_registros").html(res);
+        $("#contenido").hide();
+        $('#calendario_eliminar').datepicker();
+         elminar_fila();
+
+                          });
+                                    }
+                                    
+    function ir_panel(){
            
-                    $('#resultado_seleccionado').val(resultado_seleccionado);
+            $.get(ruta_contenedores+'contenedor_menu_panel.jsp',function(data){
+            $("#contenido").html('');
+            $('#contenido').show();
+            $("#contenido").html(data);
+           
+                                     }); }     
     
-      var combo=$('#estado_requerido').val(); 
-     var  select=$("#resultado_seleccionado").val();
-    var txt_liberado= $('#liberado_por').val();  
-    var estado_liberacion= $('#estado_liberacion').val();  
-    var motivo_retencion= $('#motivo_retencion').val();  
-    var disposicion= $('#disposicion').val();  
-  if( select===""){
-      
-            swal({   
-            title: "ERROR, SELECCIONE LOTE!!!",   
-            text: "",   
-            timer: 2000,   
-            showConfirmButton: false
-            });
-               $.preloader.stop();
-                    }
-            else{
-                if(combo==="L"){
-                      if(txt_liberado===""){
-              
-                swal({   
-                            title: "ERROR, COMPLETE TODOS LOS DATOS!!!",   
-                            text: "",   
-                            timer: 2000,   
-
-                            showConfirmButton: false
-                        }
-                          ); 
-                            
-                                }
-                                else{
-                                    imprimir();
-                                enviar_datos_retenidos2();    
-                                }
-          
-      }
-      
-      
-            if(combo==="R"){
-                if(estado_liberacion===null||motivo_retencion===null||disposicion===null ){
-              
-                swal({   
-                            title: "ERROR, COMPLETE TODOS LOS DATOS!!!",   
-                            text: "",   
-                            timer: 2000,   
-
-                            showConfirmButton: false
-                        }
-                                    ); 
-                            $.preloader.stop(); 
-              
-          }
-          else{
-              
-               imprimir();
-                enviar_datos_retenidos2();    
-              
-          }
-          
+    function ir_registro_tipo_reproceso(){
+        $.get(ruta_contenedores+'contenedor_registro_tipo_reproceso.jsp',function(data){
+        $("#contenido_registros").html('');
+        $('#contenido_registros').show();
+        $("#contenido_registros").html(data);
+        $('#contenido').hide();
+        llenar_grilla_tipo_reproceso(); 
+    
         
-          
-          
-      }
-   }
-         
-   } 
-   // validar_seleccion();
-   // 
-    
+        }); } 
 
- function validar_seleccion(){
-      if($("#resultado_seleccionado").val()=="") {
-          alert("DEBE SELECCIONAR AL MENOS UN LOTE"); 
-      }
- }
- 
- 
-    
- function validar_retenido(){
+    function traer_grilla_carromesa(fecha_carromesa){
+        $.get(ruta_grillas+'grilla_carros_mesas.jsp',{fecha_carromesa:fecha_carromesa},function(res){
+        $("#div_grilla_carromesa").html(res);
+        $('#tabla_carromesa').DataTable();
+                }); }
 
-           if($("#desde").val()==""||$("#hasta").val() == ""||$("#calendario_retenido").val() == "") {
-       
-            alert("ERROR COMPLETAR DATOS"); 
-            $.preloader.stop();
-         }
-         
-       
-           else {
-             traer_detalle_retenido(traer_detalle_retenido($("#calendario_retenido").val(),$("#desde").val(),$("#hasta").val(),$("#estado_requerido").val()));
-      $('#divid_grilla_retenido').show(); 
-       $('#btn_registrar_retenido').show(); 
-    
-     }  }
-     
-     
-        function traer_detalle_retenido(fecha_retenido,inicio_retenido,fin_retenido,combo_estado_retenido){
-             
-         
-                $.get('grilla_lotes.jsp',{fecha_retenido:fecha_retenido,inicio_retenido:inicio_retenido,fin_retenido:fin_retenido,combo_estado_retenido:combo_estado_retenido},function(res){
-                    $("#divid_grilla_retenido").html(res);
-                    $("#box_retenidos").on('click',function(){
-                        chequear_todos_retenidos2();
-                    })
-                });
-            }
-            
-            
-            function validar_retenido_puesta(){
+         function traer_detalle_eliminar(fecha){
+               $.get(ruta_grillas+'grilla_eliminar.jsp',{fecha:fecha},function(res){
+                   
+                    $("#div_eliminar").html('');
+                    $("#div_eliminar").html(res);
+                    $("#grilla_eliminar").DataTable();
+                    
+                    
+    });  } 
+    function traer_registro(){
+        $("#contenido_2").html(""); 
+        $.get(ruta_contenedores+'contenedor_registro.jsp',function(res){
+        $("#contenido_registros").html('');
+        $("#contenido_registros").html(res);
+        $("#contenido").hide();
+        $('#calendario_registro').datepicker() ;
+        $('#fecha_puesta').datepicker();
+        inicializar_unidad_medida();
+        animacion_loading(); }); }
 
-           if($("#desde").val()==""||$("#hasta").val() == ""||$("#calendario_retenido").val() == "") {
+    function traer_informe(){
+        $.get(ruta_contenedores+'contenedor_informe.jsp',function(res){
+        $("#contenido_registros").html('');
+        $("#contenido_registros").html(res);
+        $("#contenido").hide();
+        $('#calendario_informe').datepicker({  uiLibrary: 'bootstrap4' }); }); }
+
+    function traer_contendor_cambiar_pass_jsp(){
+        $.get(ruta_contenedores+'contenedor_password.jsp',function(res){
+        $("#contenido_registros").html('');
+        $("#contenido_registros").html(res);
+        $("#contenido").hide(); }); }
        
-            alert("ERROR COMPLETAR DATOS"); 
-            $.preloader.stop();
-         }
+    function traer_contendor_pdf_jsp(){
+        $.get(ruta_contenedores+'contenedor_pdf.jsp',function(res){
+        $("#contenido_2").html(res);
+        $('#contenido').hide(); }); }
+    
+    function traer_reporte_lotes(){
+           
+          $.get(ruta_contenedores+'contenedor_reporte_carros.jsp',function(res){
+           $("#contenido_2").html('');
+              $("#contenido_2").html(res);
+              $("#contenido_2").show();
+           
+          $('#contenido').html('');
          
-       
-           else {
-             traer_detalle_retenido_puesta(traer_detalle_retenido_puesta($("#calendario_retenido").val(),$("#desde").val(),$("#hasta").val(),$("#estado_requerido").val()));
-      $('#divid_grilla_retenido').show(); 
-       $('#btn_registrar_retenido').show(); 
-    
-     }  }
- function traer_detalle_retenido_puesta(fecha_retenido,inicio_retenido,fin_retenido,combo_estado_retenido){
-             
+         $("#calendario_reporte_carros").datepicker();
+                                                  });
          
-                $.get('grilla_lotes_puesta.jsp',{fecha_retenido:fecha_retenido,inicio_retenido:inicio_retenido,fin_retenido:fin_retenido,combo_estado_retenido:combo_estado_retenido},function(res){
-                    $("#divid_grilla_retenido").html(res);
-                    $("#box_retenidos").on('click',function(){
-                        chequear_todos_retenidos2();
-                    })
-                });
-            }            
+                                     }                    
  
- 
- 
- 
- 
- function chequear_todos_retenidos2(){
+    function ir_carro_a_mesa(){
+        $.get(ruta_contenedores+'contenedor_carro_mesa.jsp',function(res){
+        $("#contenido_registros").html('');
+        $("#contenido_registros").html(res);
+        $('#contenido').hide();
+        $("#calendario_mesa").datepicker(); }); }    
     
-    var checked = $("#box_retenidos").prop('checked');
-    $('#divid_grilla_retenido').find('input:checkbox').prop('checked', checked);
-  
- 
- }
-    
-    
-    
-            
-            
-             function filtrar_grilla_carromesa (){
-                     $("#buscar_carromesa").on("keyup", function() {
-                     var value = $(this).val().toLowerCase();
-                     $("#tabla_carromesa tr").filter(function() {
-                     $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-                        });
-                       });
-                      }
-                      
-                      
+    function ir_reporte_rotos(){
+           
+          $.get(ruta_contenedores+'contenedor_reporte_rotos.jsp',function(res){
+            $("#contenido_registros").html('');
+    $("#contenido_registros").html(res);
+    $("#contenido").hide();
+        
+          $('#calendario_reporte_rotos').datepicker();
+                                                  });
+         
+                                     }  
+                 
+    function traer_contendor_pdf_reproceso(){
+        $.get(ruta_contenedores+'contenedor_pdf_reproceso.jsp',function(res){
+        $("#contenido_registros").html('');
+        $("#contenido_registros").html(res);
+        $("#contenido").hide();
+        $('#calendario_reporte_reproceso').datepicker(); });  }  
+
     function cuadro_registro(id_carrito,nro_carro) {
-        
-             Swal.fire
-    (
+       Swal.fire
+        (
             {
                 title: 'AGREGAR NRO MESA A CARRO NRO. '+ nro_carro,
                 type: 'warning',
@@ -203,90 +156,51 @@
                 showConfirmButton: false
             }
     );
-        
     $('#form_carros_mesa').on('submit', function(e){ e.preventDefault(); enviar_datos_carromesa(id_carrito,$('#txt_mesa').val()); });   
-        
-         
-       
-    
-}
+   }
 
+    function visible(){
+        var estado= $("#estado_requerido").val();
+        if (estado==="R"){
+            $("#combo_retenido").show();
+            $("#liberado_por").hide();
+            }
+        if (estado==="L"){
+            $("#liberado_por").show();
+            $("#combo_retenido").hide();
+        } }
 
-
-function visible(){
-    var estado= $("#estado_requerido").val();
-    
-    if (estado==="R"){
-        
-        $("#combo_retenido").show();
-         $("#liberado_por").hide();
-    }
-    if (estado==="L"){
-         $("#liberado_por").show();
-        $("#combo_retenido").hide();
-    }
-}
-
- 
-        
-   function ir_registro_tipo_reproceso(){
-           
-            $.get(ruta_contenedores+'contenedor_registro_tipo_reproceso.jsp',function(data){
-            $("#contenido_2").html('');
-            $('#contenido_2').show();
-            $("#contenido_2").html(data);
-         
-          $('#contenido').hide();
-           $('#contenido_eliminar').hide();
-          $('#contenido_password').hide();
-          $('#contenido_visualizar').hide();
-            llenar_grilla_tipo_reproceso();
-      
-                                     }); } 
-      function llenar_grilla_tipo_reproceso(){
+    function llenar_grilla_tipo_reproceso(){
            
             $.get(ruta_grillas+'grilla_registro_tipo_reproceso.jsp',function(data){
             $("#div_grilla_registro").html('');
             $("#div_grilla_registro").html(data);
-            $('#tabla_reproceso').bootstrapTable();
+            $('#tabla_reproceso').DataTable();
  
       
                                      }); }                             
  
-function principal(){
+    function principal(){
     
       $.get(ruta_grillas+'grilla_normal.jsp',({calendario_informe:$('#calendario_informe').val()}),function(data){
             $("#div_grilla_registro").html('');
                 $('#div_grilla').html(data);
-                $("#grilla_registros").DataTable();
-
-                
-       
-                                     });
- 
-    
-  }
-    function traer_grilla_carromesa(fecha_carromesa){
-            $.get(ruta_grillas+'grilla_carros_mesas.jsp',{fecha_carromesa:fecha_carromesa},function(res){
-            $("#div_grilla_carromesa").html(res);
-            $('#tabla_carromesa').DataTable();
-                });
-            }
- function editar_reproceso (id,clasificadora,descripcion,tipo_reproceso){
- 
-         
-      Swal.fire({
+                $("#grilla_registros").DataTable();  });
+        }
+   
+    function editar_reproceso (id,clasificadora,descripcion,tipo_reproceso){
+        Swal.fire({
            title: 'MODIFICACION DE TIPO DE REPROCESO',
-  text: 'DESEA EDITAR EL TIPO SELECCIONADO?',
+        text: 'DESEA EDITAR EL TIPO SELECCIONADO?',
         type: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-           confirmButtonText: 'SI, EDITAR!',
-           cancelButtonText: 'NO, CANCELAR!'
-    }).then((result) => {
+        confirmButtonText: 'SI, EDITAR!',
+        cancelButtonText: 'NO, CANCELAR!'
+            }).then((result) => {
         if (result.value) {
- Swal.fire({
+            Swal.fire({
                 title: 'PROCESANDO!',
                 html: 'ESPERE<strong></strong>...',
                 allowOutsideClick: false,
@@ -316,7 +230,7 @@ function principal(){
      
  }
  
- function aviso_editado_tipo_reproceso(mensaje_impresion,mensaje,tipo_mensaje,clasificadora,descripcion,id,tipo_reproceso){
+    function aviso_editado_tipo_reproceso(mensaje_impresion,mensaje,tipo_mensaje,clasificadora,descripcion,id,tipo_reproceso){
        swal.fire({
                  type:  mensaje_impresion,
                  title:  mensaje,
@@ -352,20 +266,20 @@ function principal(){
 
                 } }  
  
-function aviso_eliminar_reproceso(id,descripcion){
+    function aviso_eliminar_reproceso(id,descripcion){
     
       Swal.fire({
            title: '¿Seguro que deseas ELIMINAR el registro?',
-  text: 'Eliminar el tipo de reproceso,'+ descripcion,
+        text: 'Eliminar el tipo de reproceso,'+ descripcion,
         type: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
            confirmButtonText: 'SI, ELIMINAR!',
            cancelButtonText: 'NO, CANCELAR!'
-    }).then((result) => {
+            }).then((result) => {
         if (result.value) {
- Swal.fire({
+            Swal.fire({
                 title: 'PROCESANDO!',
                 html: 'ESPERE<strong></strong>...',
                 allowOutsideClick: false,
@@ -386,8 +300,7 @@ function aviso_eliminar_reproceso(id,descripcion){
         });   
 }
 
-
- function  control_eliminar_reproceso(id){
+    function  control_eliminar_reproceso(id){
                     
                     $.get(ruta_controles+'control_eliminar_tipo_reproceso.jsp',
                     
@@ -410,554 +323,12 @@ function aviso_eliminar_reproceso(id,descripcion){
     
  }                                       
                                  
-                                               
-function habilitar_boton_registrar()
-	{
+    function habilitar_boton_registrar() {
 	$('#tipo_almacenamiento').change(function(){
         $('#btn_registrar').removeAttr('disabled');
         });}
- function traer_menu(){
-           
-  $.get(ruta_contenedores+'contenedor_menu.jsp',function(res){
-     $("#contenido").html(res);
-     $('#contenido').show();
-     $('#contenido_reporte').hide();
-     $('#contenido_2').hide();
-     $('#contenido_eliminar').hide();
-     $('#contenido_password').hide();
-     $('#contenido_visualizar').hide();  
-     $('#contenido_retenido').hide(); 
-  });
-  
- }
  
- 
- 
- function traer_menu(perfil){
-           
-  $.get(ruta_contenedores+'contenedor_menu.jsp',function(res){
-     $("#contenido").html(res);
-     $('#contenido').show();
-     $('#contenido_reporte').hide();
-     $('#contenido_2').hide();
-     $('#contenido_eliminar').hide();
-     $('#contenido_password').hide();
-     $('#contenido_visualizar').hide();  
-     $('#contenido_retenido').hide(); 
-    
-      if(perfil=="U"){
-         $('#div_panel').hide();  
-    }
-    else if(perfil=="A") {
-        
-         $('#div_panel').show();  
-    }
-   });
- //  
-   
- }
- 
- 
- 
- 
- 
- 
-          function ir_panel(){
-           
-            $.get(ruta_contenedores+'contenedor_menu_panel.jsp',function(data){
-            $("#contenido").html('');
-            $('#contenido').show();
-            $("#contenido").html(data);
-           
-                                     }); }     
-function traer_registro(){
-  $("#contenido_2").html(""); 
-  $.get(ruta_contenedores+'contenedor_registro.jsp',function(res){
-    $("#contenido_2").html(res);
-    $('#contenido').hide();
-    $('#contenido_eliminar').hide();
-    $('#contenido_password').hide();
-    $('#contenido_reporte').hide();
-    $('#contenido_visualizar').hide();
-    $('#contenido_retenido').hide();
-    $('#contenido_2').show();
-    //$("#nro_empacadora").bsMultiSelect();
-    $('#calendario_registro').datepicker() ;
-    $('#fecha_puesta').datepicker();
-     inicializar_unidad_medida();
-        animacion_loading();
-        //$("#nro_empacadora").bsMultiSelect();
-  
-  });
-                            }
- 
-
-      
-      
-        function traer_registro_retenido(){
-           
-             $.get(ruta_contenedores+'contenedor_registro_retenido.jsp',function(res){
-             $("#contenido_retenido").html('');
-             $("#contenido_retenido").html(res);
-             $('#contenido_retenido').show();
-             $('#contenido').hide();
-             $('#contenido_2').html('');
-             $('#contenido_eliminar').hide();
-             $('#contenido_password').hide();
-             $('#contenido_reporte').hide();
-             $('#contenido_visualizar').hide();
-             $('#calendario_registro').datepicker();
-             $('#fecha_puesta').datepicker();
-              // $("#nro_empacadora_registro_retenido").bsMultiSelect();
-            
-                  unidad_medida_registrar_retenido();
-                     
-              });
-                                             }
-      
-      
-      
-            function traer_retenido(){
-           
-             $.get(ruta_contenedores+'contenedor_retenidos.jsp',function(res){
-                   $("#contenido_retenido").html('');
-             $("#contenido_retenido").html(res);
-             $('#contenido_retenido').show();
-             $('#contenido').hide();
-             $('#contenido_2').hide();
-             $('#contenido_eliminar').hide();
-             $('#contenido_password').hide();
-             $('#contenido_reporte').hide();
-             $('#contenido_visualizar').hide();
-              $('#calendario_retenido').datepicker();
-           //  filtrar_retenido();
-             filtrar_grilla_retenido();
-              
-             
-             
-             });
-             
-           
-      }
-           function traer_retenido_fecha_puesta(){
-           
-             $.get(ruta_contenedores+'contenedor_retenidos_puesta.jsp',function(res){
-                   $("#contenido_retenido").html('');
-             $("#contenido_retenido").html(res);
-             $('#contenido_retenido').show();
-             $('#contenido').hide();
-             $('#contenido_2').hide();
-             $('#contenido_eliminar').hide();
-             $('#contenido_password').hide();
-             $('#contenido_reporte').hide();
-             $('#contenido_visualizar').hide();
-              $('#calendario_retenido').datepicker();
-           //  filtrar_retenido();
-             filtrar_grilla_retenido();
-              
-             
-             
-             });
-             
-           
-      }
-      
-      
-      
-         function traer_eliminar(){
-           
-             $.get(ruta_contenedores+'contenedor_eliminar.jsp',function(res){
-             $("#contenido_eliminar").html(res);
-             $('#contenido_eliminar').show();
-             $('#contenido').hide();
-             $('#contenido_2').hide();
-             $('#contenido_password').hide();
-             $('#contenido_reporte').hide();
-             $('#contenido_visualizar').hide();
-             $('#contenido_retenido').hide(); 
-             $('#calendario_eliminar').datepicker();
-             
-                     elminar_fila();
-
-                             tabla_render();                               });
-                                    }
-      
-      
-      function traer_informe(){
-           
-                 $.get(ruta_contenedores+'contenedor_informe.jsp',function(res){
-                 $("#contenido_visualizar").html(res);
-                 $('#contenido').hide();
-                 $('#contenido_2').hide();
-                 $('#contenido_eliminar').hide();
-                 $('#contenido_password').hide();
-                 $('#contenido_reporte').hide();
-                 $('#contenido_visualizar').show();
-                 $('#contenido_retenido').hide(); 
-                  $('#calendario_informe').datepicker({
-            uiLibrary: 'bootstrap4'
-        });
-                                                                });
-                               }
-      
-       function traer_insert(){
-           
-          $.get(ruta_controles+'lotes_control.jsp',function(res){
-                    $("#contenido_2").html(res);
-          });
-           $('#contenido').hide();
-   $('#contenido_2').show();
-          
-      }
-      
-      
-        
-      
-        function traer_contendor_cambiar_pass_jsp(){
-           
-                    $.get(ruta_contenedores+'contenedor_password.jsp',function(res){
-                    $("#contenido_password").html(res);
-                    $('#contenido_password').show();
-                    $('#contenido').hide();
-                    $('#contenido_2').hide();
-                    $('#contenido_reporte').hide();
-                    $('#contenido_eliminar').hide();
-                    $('#contenido_visualizar').hide();
-                                                                  });
-                                                    }
-       
-
-  function traer_contendor_pdf_jsp(){
-           
-          $.get(ruta_contenedores+'contenedor_pdf.jsp',function(res){
-          $("#contenido_reporte").html(res);
-          $('#contenido_reporte').show();
-          $('#contenido').hide();
-          $('#contenido_2').hide();
-          $('#contenido_eliminar').hide();
-          $('#contenido_password').hide();
-          $('#contenido_visualizar').hide();
-          $('#calendario').datepicker();
-                                                  });
-         
-                                     }
-                                     
-                                     
-                                     
-    function ir_carro_a_mesa(){
-        $.get(ruta_contenedores+'contenedor_carro_mesa.jsp',function(res){
-            $("#contenido_reporte").html('');
-            $("#contenido_reporte").html(res);
-            $('#contenido_reporte').show();
-            $('#contenido').hide();
-            $('#contenido_2').hide();
-            $("#calendario_mesa").datepicker();
-                     });
-                     
-                  }                 
-                 
-                 
-                 
-         function traer_contendor_pdf_reproceso(){
-           
-          $.get(ruta_contenedores+'contenedor_pdf_reproceso.jsp',function(res){
-           $("#contenido_reporte").html('');
-              $("#contenido_reporte").html(res);
-          $('#contenido_reporte').show();
-          $('#contenido').hide();
-          $('#contenido_2').hide();
-          $('#contenido_eliminar').hide();
-          $('#contenido_password').hide();
-          $('#contenido_visualizar').hide();
-          $('#calendario_reporte_reproceso').datepicker();
-                                                  });
-         
-                                     }  
-                    function ir_reporte_rotos(){
-           
-          $.get(ruta_contenedores+'contenedor_reporte_rotos.jsp',function(res){
-           $("#contenido_reporte").html('');
-              $("#contenido_reporte").html(res);
-          $('#contenido_reporte').show();
-          $('#contenido').hide();
-          $('#contenido_2').hide();
-          $('#contenido_eliminar').hide();
-          $('#contenido_password').hide();
-          $('#contenido_visualizar').hide();
-          $('#calendario_reporte_rotos').datepicker();
-                                                  });
-         
-                                     }                     
-                                     
-         function traer_grilla_retenido(){
-           
-          $.get(ruta_contenedores+'contenedor_grilla_reproceso.jsp',function(res){
-           $("#contenido_2").html('');
-              $("#contenido_2").html(res);
-              $("#contenido_2").show();
-          $('#contenido_reporte').html('');
-          $('#contenido').html('');
-          $('#contenido_eliminar').html('');
-          $('#contenido_password').html('');
-          $('#contenido_visualizar').html('');
-         
-                                                  });
-         
-                                     }                                    
-                                     
-                                     
-                                     
-                      function traer_reporte_lotes(){
-           
-          $.get(ruta_contenedores+'contenedor_reporte_carros.jsp',function(res){
-           $("#contenido_2").html('');
-              $("#contenido_2").html(res);
-              $("#contenido_2").show();
-          $('#contenido_reporte').html('');
-          $('#contenido').html('');
-          $('#contenido_eliminar').html('');
-          $('#contenido_password').html('');
-          $('#contenido_visualizar').html('');
-         $("#calendario_reporte_carros").datepicker();
-                                                  });
-         
-                                     }                    
-                                     
-
-
-  function traer_control_eliminar(id){
-                    
-            $.get(ruta_controles+'eliminar_control.jsp',{id:id},function(res){
-             
-                $('#'+id+'').remove();
-                
-              swal.fire({
-            type: 'error',
-            title: "REGISTRO ELIMINADO ",
-            confirmButtonText: "CERRAR"
-            });   
-               
-            
-            });  
-                } 
-                                       
-                                        
-                                        
-                                        
-    function traer_grilla_reproceso(){
-           
-          $.get(ruta_grillas+'grilla_reproceso.jsp',function(res){
-           $("#contenedor_grilla_reproceso").html(res);
-           
-         
-                                                  });
-         
-                                     }                                     
- 
-                                        
-                             
-function inicializar_unidad_medida(){
-    medida=$("#unidad_medida");     
-    tipo_huevo=$("#tipo_huevo");
-    tipo_huevo.change(cargar_unidad_medida);
- }
-
-function unidad_medida_registrar_retenido(){
-    medida=$("#unidad_medida");     
-    tipo_huevo=$("#tipo_huevo");
-    tipo_huevo.change(cargar_unidad_medida);
- }
-function cargar_unidad_medida() { 
- 
-    medida.children().remove();  
- 
- if (tipo_huevo.val()==="2"||tipo_huevo.val()==="3"||tipo_huevo.val()==="4"||tipo_huevo.val()==="5"
-    ||tipo_huevo.val()==="6"||tipo_huevo.val()==="SC"||tipo_huevo.val()==="7") { 
-      var nombre_option = new Array();
-      var cantidad = new Array();
-      nombre_option[0] = "CAJON"; 
-      cantidad[0] = "360"; 
-      nombre_option[1] = "CARRITO NORMAL";
-      cantidad[1] = "4320"; 
-      
-      for(var i=0; i< nombre_option.length; i++) {
-            medida.append('<option value="' + cantidad[i] + '">' +   nombre_option[i] + '</option>');
-      }
- }
- 
-  else if (tipo_huevo.val()==="1") {
-      var nombre_option = new Array(); 
-      var valores = new Array();
-      nombre_option[0] = "CAJON GIGANTE"; 
-      valores[0] = "180";
-      
-       for(var i=0; i< nombre_option.length; i++) {
-           medida.append('<option value="' + valores[i] + '">' +   nombre_option[i] + '</option>');
-      }
-
- }
-
-else if (tipo_huevo.val()==="9" ||tipo_huevo.val()==="8"||tipo_huevo.val()==="RP") {
-      var nombre_option = new Array(); 
-      var valores = new Array();
-      var id_fecha= $('#id_date').val();
-      nombre_option[0] = "GRANEL"; 
-      valores[0] = "1";
-      
-       for(var i=0; i< nombre_option.length; i++) {
-           medida.append('<option value="' + valores[i] + '">' +   nombre_option[i] + '</option>');
-      }
-      
-      $('#cod_carrito').val(id_fecha);
-      
- }
-
-}  
-
-
-function validacion_eliminacion(cod_interno,cod_carrito){
-        
-          Swal.fire({
-            title: '¿Seguro que deseas ELIMINAR el registro?',
-            text: 'Eliminar carro Nº '+cod_carrito ,
-            type: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'SI, ELIMINAR!',
-            cancelButtonText: 'NO, CANCELAR!'
-            }).then((result) => {
-            if (result.value) {
-            Swal.fire({
-            title: 'PROCESANDO!',
-           showConfirmlButton:false,
-            allowOutsideClick: false,
-            onBeforeOpen: () => {
-            Swal.showLoading();
-            timerInterval = setInterval(() => { Swal.getContent().querySelector('strong').textContent = Swal.getTimerLeft();}, 1000);
-                } 
-            });  
-           traer_control_eliminar(cod_interno);
-         }
-        });
-    }
-    
-    
-    $("#txt_plancha").click(function () {
-        $(this).select();
-        });
-        $("#txt_unidad").click(function () {
-   $(this).select();
-        });
-        
-    $("#txt_gramos").click(function () {
-        $(this).select();
-        });
-        $("#txt_kg").click(function () {
-     $(this).select();
-        });
-   
-   function limpiar_campos(){
-       var gramos,kg,unidad,plancha;
-       unidad=$('#txt_unidad').val('');
-       plancha=$('#txt_plancha').val('');
-       gramos=$('#txt_gramos').val('');
-         kg=$('#txt_kg').val('');
-   }
-   
-   function detalle_reproceso(calendario,combo_disposicion){
-        $.get(ruta_grillas+'grilla_reproceso.jsp',{calendario:calendario,combo_disposicion:combo_disposicion},function(res){
-        $("#contenedor_grilla_reproceso").html(res);
-        $("#box_reproceso").on('click',function(){
-        chequear_reproceso(); });
-            }); }
-        
-    function chequear_reproceso(){
-            var checked = $("#box_reproceso").prop('checked');
-            $('#contenedor_grilla_reproceso').find('input:checkbox').prop('checked', checked);
-                                            }
-            function setear_check()    {     
-            var arr = $('[name="checks[]"]:checked').map(function(){
-            return this.value;
-            }).get();
-            var resultado_seleccionado = arr.join(',');
-            $('#caja_check').val(resultado_seleccionado);
-                                        }    
-                    
-        
-        
-        function validar (){
-            
-          setear_check();
-                var fecha_alimentacion= $("#calendario_alimentacion").val();
-                var fecha_clasificacion= $("#calendario_reproceso").val();
-                var combo_disposicion=$("#disposicion").val();
-                var resultado=$("#caja_check").val();  
-                if(combo_disposicion===""){
-                aviso();
-                }  
-                if(combo_disposicion==="6"||combo_disposicion==="7"){
-                    if(resultado===""||fecha_alimentacion===""||fecha_clasificacion==="")   
-                    {
-                        aviso();
-                    }
-                    else 
-                    {
-                        enviar_datos_reproceso();
-                            // aviso2();
-                    }
-                        }
-                            
-                    if(combo_disposicion==="8"||combo_disposicion==="9"){
-                        if(resultado===""||fecha_clasificacion==="")   {
-                            aviso();}
-                    else {
-                            enviar_datos_reproceso(); 
-                          }
-                      }    } 
-                            
-    function aviso(){
-                swal({   
-		title: "ERROR, COMPLETE TODOS LOS DATOS",   
-		text: "",   
-		timer: 2000,   
-                showConfirmButton: false
-                    }
-                        ); 
-                $.preloader.stop();
-            }
-            
-    function aviso2(){
-                swal({   
-		title: "CORRECTO",   
-		text: "",   
-		timer: 2000,   
-                showConfirmButton: false
-            }
-                        );  }
-            
-    function ver_div(){
-        var disposicion=$("#disposicion").val();
-            if (disposicion==="6"||disposicion==="7"||disposicion==="9"){
-                $("#contenido_grilla").show();
-                $("#div_registro").show();}
-            if (disposicion==="8"){
-                $("#contenido_grilla").hide();
-                $("#div_registro").show();
-                }
-                }
-        function elminar_fila() {
-       
-       
-        $(document).on('click', '.borrar', function (event) {
-            event.preventDefault();
-            $(this).closest('tr').remove();
-        });
-    
-        }
-  
-  
-  function enviar_datos_lotes(total){
+    function enviar_datos_lotes(total){
     
     
     Swal.fire({
@@ -1007,21 +378,191 @@ function validacion_eliminacion(cod_interno,cod_carrito){
         }
         });                          
   }
-     
-      function enviar_datos_retenidos2() {
 
-        $.ajax({
-        type: "POST",
-        url: ruta_controles+"control_insert_retenidos.jsp",
-        data: $("#formulario_retenido").serialize(),
-        success: function(data) {
-         $('#contenido_retenido').html(data);
-                                }
-                });
- 
-                                              };
-     
-     function enviar_datos_carromesa(id_carrito,codigo_mesa) {
+    function traer_insert(){
+           
+          $.get(ruta_controles+'lotes_control.jsp',function(res){
+                    $("#contenido_2").html(res);
+          });
+            $('#contenido').hide();
+            $('#contenido_2').show();
+          
+      }
+      
+    function traer_grilla_retenido(){
+           
+          $.get(ruta_contenedores+'contenedor_grilla_reproceso.jsp',function(res){
+           $("#contenido_2").html('');
+              $("#contenido_2").html(res);
+              $("#contenido_2").show();
+          
+          $('#contenido').html('');
+          
+         
+                                                  });
+         
+                                     }                                    
+    
+    function traer_control_eliminar(id){
+                    
+            $.get(ruta_controles+'eliminar_control.jsp',{id:id},function(res){
+             
+           
+                
+              swal.fire({
+            type: 'error',
+            title: "REGISTRO ELIMINADO ",
+            confirmButtonText: "CERRAR"
+            });   
+              
+traer_detalle_eliminar($('#calendario_eliminar').val())            
+            });  
+                } 
+                                       
+    function traer_grilla_reproceso(){
+           
+          $.get(ruta_grillas+'grilla_reproceso.jsp',function(res){
+           $("#contenedor_grilla_reproceso").html(res); });
+         
+                                     }                                     
+    
+    function validacion_eliminacion(cod_interno,cod_carrito){
+        
+          Swal.fire({
+            title: '¿Seguro que deseas ELIMINAR el registro?',
+            text: 'Eliminar carro Nº '+cod_carrito ,
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'SI, ELIMINAR!',
+            cancelButtonText: 'NO, CANCELAR!'
+            }).then((result) => {
+            if (result.value) {
+            Swal.fire({
+            title: 'PROCESANDO!',
+           showConfirmlButton:false,
+            allowOutsideClick: false,
+            onBeforeOpen: () => {
+            Swal.showLoading();
+            timerInterval = setInterval(() => { Swal.getContent().querySelector('strong').textContent = Swal.getTimerLeft();}, 1000);
+                } 
+            });  
+           traer_control_eliminar(cod_interno);
+         }
+        });
+    }
+
+    function inicializar_unidad_medida(){
+       medida=$("#unidad_medida");     
+       tipo_huevo=$("#tipo_huevo");
+       tipo_huevo.change(cargar_unidad_medida);
+    }
+
+    function unidad_medida_registrar_retenido(){
+       medida=$("#unidad_medida");     
+       tipo_huevo=$("#tipo_huevo");
+       tipo_huevo.change(cargar_unidad_medida);
+    }
+   
+    function cargar_unidad_medida() { 
+
+       medida.children().remove();  
+
+    if (tipo_huevo.val()==="2"||tipo_huevo.val()==="3"||tipo_huevo.val()==="4"||tipo_huevo.val()==="5"
+       ||tipo_huevo.val()==="6"||tipo_huevo.val()==="SC"||tipo_huevo.val()==="7") { 
+         var nombre_option = new Array();
+         var cantidad = new Array();
+         nombre_option[0] = "CAJON"; 
+         cantidad[0] = "360"; 
+         nombre_option[1] = "CARRITO NORMAL";
+         cantidad[1] = "4320"; 
+
+         for(var i=0; i< nombre_option.length; i++) {
+               medida.append('<option value="' + cantidad[i] + '">' +   nombre_option[i] + '</option>');
+         }
+    }
+
+     else if (tipo_huevo.val()==="1") {
+         var nombre_option = new Array(); 
+         var valores = new Array();
+         nombre_option[0] = "CAJON GIGANTE"; 
+         valores[0] = "180";
+
+          for(var i=0; i< nombre_option.length; i++) {
+              medida.append('<option value="' + valores[i] + '">' +   nombre_option[i] + '</option>');
+         }
+
+    }
+
+   else if (tipo_huevo.val()==="9" ||tipo_huevo.val()==="8"||tipo_huevo.val()==="RP") {
+         var nombre_option = new Array(); 
+         var valores = new Array();
+         var id_fecha= $('#id_date').val();
+         nombre_option[0] = "GRANEL"; 
+         valores[0] = "1";
+
+          for(var i=0; i< nombre_option.length; i++) {
+              medida.append('<option value="' + valores[i] + '">' +   nombre_option[i] + '</option>');
+         }
+
+         $('#cod_carrito').val(id_fecha);
+
+    }
+
+   }  
+
+    function limpiar_campos(){
+       var gramos,kg,unidad,plancha;
+       unidad=$('#txt_unidad').val('');
+       plancha=$('#txt_plancha').val('');
+       gramos=$('#txt_gramos').val('');
+         kg=$('#txt_kg').val('');
+   }
+   
+    function detalle_reproceso(calendario,combo_disposicion){
+        $.get(ruta_grillas+'grilla_reproceso.jsp',{calendario:calendario,combo_disposicion:combo_disposicion},function(res){
+        $("#contenedor_grilla_reproceso").html(res);
+        $("#box_reproceso").on('click',function(){
+        chequear_reproceso(); });
+            }); }
+        
+    function chequear_reproceso(){
+            var checked = $("#box_reproceso").prop('checked');
+            $('#contenedor_grilla_reproceso').find('input:checkbox').prop('checked', checked);
+                                            }
+    
+    function aviso(){
+                swal({   
+		title: "ERROR, COMPLETE TODOS LOS DATOS",   
+		text: "",   
+		timer: 2000,   
+                showConfirmButton: false
+                    }
+                        ); 
+                $.preloader.stop();
+            }
+            
+    function aviso2(){
+                swal({   
+		title: "CORRECTO",   
+		text: "",   
+		timer: 2000,   
+                showConfirmButton: false
+            }
+                        );  }
+  
+    function elminar_fila() {
+       
+       
+        $(document).on('click', '.borrar', function (event) {
+            event.preventDefault();
+            $(this).closest('tr').remove();
+        });
+    
+        }
+  
+    function enviar_datos_carromesa(id_carrito,codigo_mesa) {
 
         $.ajax({
           type: "POST",
@@ -1056,16 +597,66 @@ function validacion_eliminacion(cod_interno,cod_carrito){
        };  
      
       
+  function  registrar_tipo_reproceso(area,desc,tipo_rep){
       
-      function enviar_datos_reproceso() {
-
+       Swal.fire({
+            title: ' ',
+            text: 'CREAR EL TIPO DE REPROCESO O SUBPRODUCTO?' ,
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'SI',
+            cancelButtonText: 'NO, CANCELAR!'
+            }).then((result) => {
+            if (result.value) {
+           
         $.ajax({
           type: "POST",
-          url: ruta_controles+"control_reproceso.jsp",
-          data: $("#formulario_reproceso").serialize(),
-          success: function(data) {
-          $('#contenedor_grilla_reproceso').html(data);
-                                    }
+          url: ruta_controles+"control_registro_tipo_reproceso.jsp",
+          data: ({desc:desc,area:area,tipo_rep:tipo_rep}),
+          
+          
+          
+            beforeSend: function () {
+            Swal.fire({
+                title: 'PROCESANDO!',
+                html: '<strong>ESPERE</strong>...',
+                allowOutsideClick: false,
+                onBeforeOpen: () => {
+                    Swal.showLoading()
+                    timerInterval = setInterval(() => {
+                        Swal.getContent().querySelector('strong')
+                            .textContent = Swal.getTimerLeft()
+                    }, 1000); }
+                        });  },
+        success: function (data) {
+                   
+                swal.fire({
+              type: 'success',
+              title: data.mensaje,
+              confirmButtonText: "CERRAR" }); 
+                $('#modal_agregar').attr("style","display:none");
+                $('.modal-backdrop').hide();
+               ir_registro_tipo_reproceso();                
+                } 
+            
+          });
+         }
         });
-
-       }; 
+  }
+    
+    $("#txt_plancha").click(function () {
+        $(this).select();
+        });
+        $("#txt_unidad").click(function () {
+   $(this).select();
+        });
+        
+    $("#txt_gramos").click(function () {
+        $(this).select();
+        });
+        $("#txt_kg").click(function () {
+     $(this).select();
+        });
+       
