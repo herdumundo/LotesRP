@@ -1,5 +1,5 @@
  <%@ page language="java" import="java.sql.*" errorPage="error.jsp" %>
-<%@include  file="chequearsesion.jsp" %>
+<%@include  file="../chequearsesion.jsp" %>
 <%    String usuario = (String) sesionOk.getAttribute("usuario");
 String clasificadora = (String) sesionOk.getAttribute("clasificadora");
 String user_name = (String) sesionOk.getAttribute("nombre_usuario");

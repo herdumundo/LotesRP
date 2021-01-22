@@ -1,7 +1,7 @@
   <%@ page language="java" import="java.sql.*" errorPage="error.jsp" %>
  <jsp:useBean id="conexion" class="clases.bdconexion1" scope="page" />
  <jsp:useBean id="fuente" class="clases.fuentedato" scope="page"/>   
-<%@include  file="chequearsesion.jsp" %>
+<%@include  file="../chequearsesion.jsp" %>
       <%
         String area_registro = (String) sesionOk.getAttribute("clasificadora"); 
         String area_format=    (String) sesionOk.getAttribute("area_fallas");

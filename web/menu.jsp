@@ -2,10 +2,10 @@
 <html lang="es">
 <%@ page session="true" %>
 <%@include  file="chequearsesion.jsp" %>
-<%    String usuario       = (String) sesionOk.getAttribute("usuario");
-      String clasificadora = (String) sesionOk.getAttribute("clasificadora");
-      String user_name = (String) sesionOk.getAttribute("nombre_usuario");
-       String perfil = (String) sesionOk.getAttribute("perfil");
+<%      String usuario       = (String) sesionOk.getAttribute("usuario");
+        String clasificadora = (String) sesionOk.getAttribute("clasificadora");
+        String user_name = (String) sesionOk.getAttribute("nombre_usuario");
+        String perfil = (String) sesionOk.getAttribute("perfil");
 %>
 <head>
   <title>MAEHARA</title>
@@ -108,58 +108,24 @@
         </div>
       </div>
     </div>
-     <script>
-        $(function(){
-
-          
-
-            // Advanced example
-            $('.example2').click(function(){
-
-                $.preloader.start({
-                    modal: true,
-                    src : 'sprites2.png'
-                });
- 
-
-            });
-
-           
-
-        });
-    </script> 
-         
+      
      
-   <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>-->
-
+ 
     <script src="jquery/sweetalert.min.js" type="text/javascript"></script>
-    <script src="jquery/functions.js" type="text/javascript"></script>
-    <script src="estilos/vendor/jquery/jquery.min.js"></script>
+     <script src="estilos/vendor/jquery/jquery.min.js"></script>
     <script src="estilos/vendor/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
     <script src="estilos/vendor/jquery-easing/jquery.easing.min.js"></script>
     <script src="jquery/data_picker.js"></script>
     <script src="jquery/data_picker_2.js" type="text/javascript"></script>
-    <script src="estilos/vendor/chart.js/Chart.min.js"></script>
-    <script src="estilos/vendor/datatables/jquery.dataTables.js"></script>
+     <script src="estilos/vendor/datatables/jquery.dataTables.js"></script>
     <script src="estilos/vendor/datatables/dataTables.bootstrap4.js"></script>
     <script src="estilos/js/sb-admin.min.js"></script>
     <script src="estilos/js/sb-admin-datatables.min.js"></script>
-    <script src="estilos/js/sb-admin-charts.min.js"></script>
-    <script src="plugins/gijgo-combined-1.9.11/js/popper.min.js" type="text/javascript"></script>
+     <script src="plugins/gijgo-combined-1.9.11/js/popper.min.js" type="text/javascript"></script>
     <script src="jquery/multiselect.js"></script>
-    <script src="jquery/efecto_carga.js"></script>
-    <script src="filtro/filtro_eliminar.js?v=1.0.4" type="text/javascript"></script>
-    <script src="jquery/traer_clases.js?v=1.0.4" type="text/javascript"></script>
-    <script src="jquery/enviar_datos.js?v=1.0.4" type="text/javascript"></script>
-    <script src="jquery/formulas.js?v=1.0.4" type="text/javascript"></script>
-    <script src="jquery/contenedor_retenido.js?v=1.0.4" type="text/javascript"></script>
-    <script src="jquery/animacion_retenido.js?v=1.0.4" type="text/javascript"></script>
-    <script src="jquery/eliminar_fila_grilla.js?v=1.0.4" type="text/javascript"></script>
-    <script type="text/javascript"   src="jquery/grilla_2.js"></script>
-    <script src="jquery/jquery.preloaders.js" type="text/javascript"></script>
-    <script src="jquery/contenedor_reproceso.js" type="text/javascript"></script>
-    <script src="jquery/reprocesos.js" type="text/javascript"></script>
-
+      <script src="jquery/traer_clases.js?v=1.0.4" type="text/javascript"></script>
+     <script src="jquery/formulas.js?v=1.0.4" type="text/javascript"></script>
+  
     </div> 
 </body>
 

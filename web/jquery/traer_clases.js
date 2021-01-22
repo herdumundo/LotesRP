@@ -1,4 +1,8 @@
-  $(document).ready(function(){
+  var ruta_contenedores="./contenedores/";
+  var ruta_controles="./controles/";
+  var ruta_grillas="./grillas/";
+  var ruta_consultas="./consultas/";
+ $(document).ready(function(){
      no_volver_atras();
      traer_menu();
  });
@@ -9,9 +13,225 @@
    window.onhashchange=function(){window.location.hash="no-back-button";}
  
 }
+        function filtrar_grilla_retenido (){
+                     $("#buscar_retenido").on("keyup", function() {
+                     var value = $(this).val().toLowerCase();
+                     $("#tabla_retenido tr").filter(function() {
+                     $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                        });
+                       });
+                      }
+        function setear_grilla(){     
+                      var arr = $('[name="checks[]"]:checked').map(function(){
+                      return this.value;
+                        }).get();
+                      var resultado_seleccionado = arr.join(',');
+           
+                    $('#resultado_seleccionado').val(resultado_seleccionado);
+    
+      var combo=$('#estado_requerido').val(); 
+     var  select=$("#resultado_seleccionado").val();
+    var txt_liberado= $('#liberado_por').val();  
+    var estado_liberacion= $('#estado_liberacion').val();  
+    var motivo_retencion= $('#motivo_retencion').val();  
+    var disposicion= $('#disposicion').val();  
+  if( select===""){
+      
+            swal({   
+            title: "ERROR, SELECCIONE LOTE!!!",   
+            text: "",   
+            timer: 2000,   
+            showConfirmButton: false
+            });
+               $.preloader.stop();
+                    }
+            else{
+                if(combo==="L"){
+                      if(txt_liberado===""){
+              
+                swal({   
+                            title: "ERROR, COMPLETE TODOS LOS DATOS!!!",   
+                            text: "",   
+                            timer: 2000,   
+
+                            showConfirmButton: false
+                        }
+                          ); 
+                            
+                                }
+                                else{
+                                    imprimir();
+                                enviar_datos_retenidos2();    
+                                }
+          
+      }
+      
+      
+            if(combo==="R"){
+                if(estado_liberacion===null||motivo_retencion===null||disposicion===null ){
+              
+                swal({   
+                            title: "ERROR, COMPLETE TODOS LOS DATOS!!!",   
+                            text: "",   
+                            timer: 2000,   
+
+                            showConfirmButton: false
+                        }
+                                    ); 
+                            $.preloader.stop(); 
+              
+          }
+          else{
+              
+               imprimir();
+                enviar_datos_retenidos2();    
+              
+          }
+          
+        
+          
+          
+      }
+   }
+         
+   } 
+   // validar_seleccion();
+   // 
+    
+
+ function validar_seleccion(){
+      if($("#resultado_seleccionado").val()=="") {
+          alert("DEBE SELECCIONAR AL MENOS UN LOTE"); 
+      }
+ }
+ 
+ 
+    
+ function validar_retenido(){
+
+           if($("#desde").val()==""||$("#hasta").val() == ""||$("#calendario_retenido").val() == "") {
+       
+            alert("ERROR COMPLETAR DATOS"); 
+            $.preloader.stop();
+         }
+         
+       
+           else {
+             traer_detalle_retenido(traer_detalle_retenido($("#calendario_retenido").val(),$("#desde").val(),$("#hasta").val(),$("#estado_requerido").val()));
+      $('#divid_grilla_retenido').show(); 
+       $('#btn_registrar_retenido').show(); 
+    
+     }  }
+     
+     
+        function traer_detalle_retenido(fecha_retenido,inicio_retenido,fin_retenido,combo_estado_retenido){
+             
+         
+                $.get('grilla_lotes.jsp',{fecha_retenido:fecha_retenido,inicio_retenido:inicio_retenido,fin_retenido:fin_retenido,combo_estado_retenido:combo_estado_retenido},function(res){
+                    $("#divid_grilla_retenido").html(res);
+                    $("#box_retenidos").on('click',function(){
+                        chequear_todos_retenidos2();
+                    })
+                });
+            }
+            
+            
+            function validar_retenido_puesta(){
+
+           if($("#desde").val()==""||$("#hasta").val() == ""||$("#calendario_retenido").val() == "") {
+       
+            alert("ERROR COMPLETAR DATOS"); 
+            $.preloader.stop();
+         }
+         
+       
+           else {
+             traer_detalle_retenido_puesta(traer_detalle_retenido_puesta($("#calendario_retenido").val(),$("#desde").val(),$("#hasta").val(),$("#estado_requerido").val()));
+      $('#divid_grilla_retenido').show(); 
+       $('#btn_registrar_retenido').show(); 
+    
+     }  }
+ function traer_detalle_retenido_puesta(fecha_retenido,inicio_retenido,fin_retenido,combo_estado_retenido){
+             
+         
+                $.get('grilla_lotes_puesta.jsp',{fecha_retenido:fecha_retenido,inicio_retenido:inicio_retenido,fin_retenido:fin_retenido,combo_estado_retenido:combo_estado_retenido},function(res){
+                    $("#divid_grilla_retenido").html(res);
+                    $("#box_retenidos").on('click',function(){
+                        chequear_todos_retenidos2();
+                    })
+                });
+            }            
+ 
+ 
+ 
+ 
+ 
+ function chequear_todos_retenidos2(){
+    
+    var checked = $("#box_retenidos").prop('checked');
+    $('#divid_grilla_retenido').find('input:checkbox').prop('checked', checked);
+  
+ 
+ }
+    
+    
+    
+            
+            
+             function filtrar_grilla_carromesa (){
+                     $("#buscar_carromesa").on("keyup", function() {
+                     var value = $(this).val().toLowerCase();
+                     $("#tabla_carromesa tr").filter(function() {
+                     $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                        });
+                       });
+                      }
+                      
+                      
+    function cuadro_registro(id_carrito,nro_carro) {
+        
+             Swal.fire
+    (
+            {
+                title: 'AGREGAR NRO MESA A CARRO NRO. '+ nro_carro,
+                type: 'warning',
+                html:  '<form id="form_carros_mesa"> \n\
+                        <input type="text" class=" form-control" placeholder="Codigo de mesa" id="txt_mesa" name="txt_mesa" required>\n\
+                        <br><br><br><input type="submit" class="form-control bg-success" value="REGISTRAR" id="btn_reg">  \n\
+                        </form>',
+                showCancelButton: false,
+                showConfirmButton: false
+            }
+    );
+        
+    $('#form_carros_mesa').on('submit', function(e){ e.preventDefault(); enviar_datos_carromesa(id_carrito,$('#txt_mesa').val()); });   
+        
+         
+       
+    
+}
+
+
+
+function visible(){
+    var estado= $("#estado_requerido").val();
+    
+    if (estado==="R"){
+        
+        $("#combo_retenido").show();
+         $("#liberado_por").hide();
+    }
+    if (estado==="L"){
+         $("#liberado_por").show();
+        $("#combo_retenido").hide();
+    }
+}
+
+ 
+        
    function ir_registro_tipo_reproceso(){
            
-            $.get('contenedor_registro_tipo_reproceso.jsp',function(data){
+            $.get(ruta_contenedores+'contenedor_registro_tipo_reproceso.jsp',function(data){
             $("#contenido_2").html('');
             $('#contenido_2').show();
             $("#contenido_2").html(data);
@@ -25,7 +245,7 @@
                                      }); } 
       function llenar_grilla_tipo_reproceso(){
            
-            $.get('grilla_registro_tipo_reproceso.jsp',function(data){
+            $.get(ruta_grillas+'grilla_registro_tipo_reproceso.jsp',function(data){
             $("#div_grilla_registro").html('');
             $("#div_grilla_registro").html(data);
             $('#tabla_reproceso').bootstrapTable();
@@ -33,7 +253,25 @@
       
                                      }); }                             
  
+function principal(){
+    
+      $.get(ruta_grillas+'grilla_normal.jsp',({calendario_informe:$('#calendario_informe').val()}),function(data){
+            $("#div_grilla_registro").html('');
+                $('#div_grilla').html(data);
+                $("#grilla_registros").DataTable();
 
+                
+       
+                                     });
+ 
+    
+  }
+    function traer_grilla_carromesa(fecha_carromesa){
+            $.get(ruta_grillas+'grilla_carros_mesas.jsp',{fecha_carromesa:fecha_carromesa},function(res){
+            $("#div_grilla_carromesa").html(res);
+            $('#tabla_carromesa').DataTable();
+                });
+            }
  function editar_reproceso (id,clasificadora,descripcion,tipo_reproceso){
  
          
@@ -64,7 +302,7 @@
               
                $.ajax({                        
            type: "POST",                 
-           url: 'control_editar_tipo_reproceso.jsp',                    
+           url: ruta_controles+'control_editar_tipo_reproceso.jsp',                    
            data: ({clasificadora:clasificadora,descripcion:descripcion,id:id,tipo_reproceso:tipo_reproceso}),
            success: function(data)            
            {
@@ -151,7 +389,7 @@ function aviso_eliminar_reproceso(id,descripcion){
 
  function  control_eliminar_reproceso(id){
                     
-                    $.get('control_eliminar_tipo_reproceso.jsp',
+                    $.get(ruta_controles+'control_eliminar_tipo_reproceso.jsp',
                     
                     {id:id},function(res){
                         
@@ -180,7 +418,7 @@ function habilitar_boton_registrar()
         });}
  function traer_menu(){
            
-  $.get('contenedor_menu.jsp',function(res){
+  $.get(ruta_contenedores+'contenedor_menu.jsp',function(res){
      $("#contenido").html(res);
      $('#contenido').show();
      $('#contenido_reporte').hide();
@@ -197,7 +435,7 @@ function habilitar_boton_registrar()
  
  function traer_menu(perfil){
            
-  $.get('contenedor_menu.jsp',function(res){
+  $.get(ruta_contenedores+'contenedor_menu.jsp',function(res){
      $("#contenido").html(res);
      $('#contenido').show();
      $('#contenido_reporte').hide();
@@ -226,7 +464,7 @@ function habilitar_boton_registrar()
  
           function ir_panel(){
            
-            $.get('contenedor_menu_panel.jsp',function(data){
+            $.get(ruta_contenedores+'contenedor_menu_panel.jsp',function(data){
             $("#contenido").html('');
             $('#contenido').show();
             $("#contenido").html(data);
@@ -234,7 +472,7 @@ function habilitar_boton_registrar()
                                      }); }     
 function traer_registro(){
   $("#contenido_2").html(""); 
-  $.get('contenedor_registro.jsp',function(res){
+  $.get(ruta_contenedores+'contenedor_registro.jsp',function(res){
     $("#contenido_2").html(res);
     $('#contenido').hide();
     $('#contenido_eliminar').hide();
@@ -258,7 +496,7 @@ function traer_registro(){
       
         function traer_registro_retenido(){
            
-             $.get('contenedor_registro_retenido.jsp',function(res){
+             $.get(ruta_contenedores+'contenedor_registro_retenido.jsp',function(res){
              $("#contenido_retenido").html('');
              $("#contenido_retenido").html(res);
              $('#contenido_retenido').show();
@@ -281,7 +519,7 @@ function traer_registro(){
       
             function traer_retenido(){
            
-             $.get('contenedor_retenidos.jsp',function(res){
+             $.get(ruta_contenedores+'contenedor_retenidos.jsp',function(res){
                    $("#contenido_retenido").html('');
              $("#contenido_retenido").html(res);
              $('#contenido_retenido').show();
@@ -303,7 +541,7 @@ function traer_registro(){
       }
            function traer_retenido_fecha_puesta(){
            
-             $.get('contenedor_retenidos_puesta.jsp',function(res){
+             $.get(ruta_contenedores+'contenedor_retenidos_puesta.jsp',function(res){
                    $("#contenido_retenido").html('');
              $("#contenido_retenido").html(res);
              $('#contenido_retenido').show();
@@ -328,7 +566,7 @@ function traer_registro(){
       
          function traer_eliminar(){
            
-             $.get('contenedor_eliminar.jsp',function(res){
+             $.get(ruta_contenedores+'contenedor_eliminar.jsp',function(res){
              $("#contenido_eliminar").html(res);
              $('#contenido_eliminar').show();
              $('#contenido').hide();
@@ -347,7 +585,7 @@ function traer_registro(){
       
       function traer_informe(){
            
-                 $.get('contenedor_informe.jsp',function(res){
+                 $.get(ruta_contenedores+'contenedor_informe.jsp',function(res){
                  $("#contenido_visualizar").html(res);
                  $('#contenido').hide();
                  $('#contenido_2').hide();
@@ -355,14 +593,16 @@ function traer_registro(){
                  $('#contenido_password').hide();
                  $('#contenido_reporte').hide();
                  $('#contenido_visualizar').show();
-                 $('#contenido_retenido').hide();  
-                 tabla_render();
-                                                               });
+                 $('#contenido_retenido').hide(); 
+                  $('#calendario_informe').datepicker({
+            uiLibrary: 'bootstrap4'
+        });
+                                                                });
                                }
       
        function traer_insert(){
            
-          $.get('lotes_control.jsp',function(res){
+          $.get(ruta_controles+'lotes_control.jsp',function(res){
                     $("#contenido_2").html(res);
           });
            $('#contenido').hide();
@@ -371,20 +611,11 @@ function traer_registro(){
       }
       
       
-         function traer_control(){
-          
-                    
-          $.get('control_registro.jsp',function(res){
-                    $("#contenido_2").html(res);
-          });
-           
-   $('#contenido_2').show();
-         $('#contenido').hide();  
-      }
+        
       
         function traer_contendor_cambiar_pass_jsp(){
            
-                    $.get('contenedor_password.jsp',function(res){
+                    $.get(ruta_contenedores+'contenedor_password.jsp',function(res){
                     $("#contenido_password").html(res);
                     $('#contenido_password').show();
                     $('#contenido').hide();
@@ -398,7 +629,7 @@ function traer_registro(){
 
   function traer_contendor_pdf_jsp(){
            
-          $.get('contenedor_pdf.jsp',function(res){
+          $.get(ruta_contenedores+'contenedor_pdf.jsp',function(res){
           $("#contenido_reporte").html(res);
           $('#contenido_reporte').show();
           $('#contenido').hide();
@@ -413,19 +644,15 @@ function traer_registro(){
                                      
                                      
                                      
-                 function traer_carro_mesa(){
-                     
-                     
-                    $.get('contenedor_carro_mesa.jsp',function(res){
-                        $("#contenido_reporte").html('');
-              $("#contenido_reporte").html(res);
-          $('#contenido_reporte').show();
-                           $('#contenido').hide();
-          $('#contenido_2').hide();
-                       $("#calendario_mesa").datepicker();
-                        filtrar_grilla_carromesa();     
-                elminar_fila();
-                    });
+    function ir_carro_a_mesa(){
+        $.get(ruta_contenedores+'contenedor_carro_mesa.jsp',function(res){
+            $("#contenido_reporte").html('');
+            $("#contenido_reporte").html(res);
+            $('#contenido_reporte').show();
+            $('#contenido').hide();
+            $('#contenido_2').hide();
+            $("#calendario_mesa").datepicker();
+                     });
                      
                   }                 
                  
@@ -433,7 +660,7 @@ function traer_registro(){
                  
          function traer_contendor_pdf_reproceso(){
            
-          $.get('contenedor_pdf_reproceso.jsp',function(res){
+          $.get(ruta_contenedores+'contenedor_pdf_reproceso.jsp',function(res){
            $("#contenido_reporte").html('');
               $("#contenido_reporte").html(res);
           $('#contenido_reporte').show();
@@ -448,7 +675,7 @@ function traer_registro(){
                                      }  
                     function ir_reporte_rotos(){
            
-          $.get('contenedor_reporte_rotos.jsp',function(res){
+          $.get(ruta_contenedores+'contenedor_reporte_rotos.jsp',function(res){
            $("#contenido_reporte").html('');
               $("#contenido_reporte").html(res);
           $('#contenido_reporte').show();
@@ -464,7 +691,7 @@ function traer_registro(){
                                      
          function traer_grilla_retenido(){
            
-          $.get('contenedor_grilla_reproceso.jsp',function(res){
+          $.get(ruta_contenedores+'contenedor_grilla_reproceso.jsp',function(res){
            $("#contenido_2").html('');
               $("#contenido_2").html(res);
               $("#contenido_2").show();
@@ -482,7 +709,7 @@ function traer_registro(){
                                      
                       function traer_reporte_lotes(){
            
-          $.get('contenedor_reporte_carros.jsp',function(res){
+          $.get(ruta_contenedores+'contenedor_reporte_carros.jsp',function(res){
            $("#contenido_2").html('');
               $("#contenido_2").html(res);
               $("#contenido_2").show();
@@ -500,7 +727,7 @@ function traer_registro(){
 
   function traer_control_eliminar(id){
                     
-            $.get('eliminar_control.jsp',{id:id},function(res){
+            $.get(ruta_controles+'eliminar_control.jsp',{id:id},function(res){
              
                 $('#'+id+'').remove();
                 
@@ -519,7 +746,7 @@ function traer_registro(){
                                         
     function traer_grilla_reproceso(){
            
-          $.get('grilla_reproceso.jsp',function(res){
+          $.get(ruta_grillas+'grilla_reproceso.jsp',function(res){
            $("#contenedor_grilla_reproceso").html(res);
            
          
@@ -611,7 +838,234 @@ function validacion_eliminacion(cod_interno,cod_carrito){
                 } 
             });  
            traer_control_eliminar(cod_interno);
-         
-        }
+         }
         });
     }
+    
+    
+    $("#txt_plancha").click(function () {
+        $(this).select();
+        });
+        $("#txt_unidad").click(function () {
+   $(this).select();
+        });
+        
+    $("#txt_gramos").click(function () {
+        $(this).select();
+        });
+        $("#txt_kg").click(function () {
+     $(this).select();
+        });
+   
+   function limpiar_campos(){
+       var gramos,kg,unidad,plancha;
+       unidad=$('#txt_unidad').val('');
+       plancha=$('#txt_plancha').val('');
+       gramos=$('#txt_gramos').val('');
+         kg=$('#txt_kg').val('');
+   }
+   
+   function detalle_reproceso(calendario,combo_disposicion){
+        $.get(ruta_grillas+'grilla_reproceso.jsp',{calendario:calendario,combo_disposicion:combo_disposicion},function(res){
+        $("#contenedor_grilla_reproceso").html(res);
+        $("#box_reproceso").on('click',function(){
+        chequear_reproceso(); });
+            }); }
+        
+    function chequear_reproceso(){
+            var checked = $("#box_reproceso").prop('checked');
+            $('#contenedor_grilla_reproceso').find('input:checkbox').prop('checked', checked);
+                                            }
+            function setear_check()    {     
+            var arr = $('[name="checks[]"]:checked').map(function(){
+            return this.value;
+            }).get();
+            var resultado_seleccionado = arr.join(',');
+            $('#caja_check').val(resultado_seleccionado);
+                                        }    
+                    
+        
+        
+        function validar (){
+            
+          setear_check();
+                var fecha_alimentacion= $("#calendario_alimentacion").val();
+                var fecha_clasificacion= $("#calendario_reproceso").val();
+                var combo_disposicion=$("#disposicion").val();
+                var resultado=$("#caja_check").val();  
+                if(combo_disposicion===""){
+                aviso();
+                }  
+                if(combo_disposicion==="6"||combo_disposicion==="7"){
+                    if(resultado===""||fecha_alimentacion===""||fecha_clasificacion==="")   
+                    {
+                        aviso();
+                    }
+                    else 
+                    {
+                        enviar_datos_reproceso();
+                            // aviso2();
+                    }
+                        }
+                            
+                    if(combo_disposicion==="8"||combo_disposicion==="9"){
+                        if(resultado===""||fecha_clasificacion==="")   {
+                            aviso();}
+                    else {
+                            enviar_datos_reproceso(); 
+                          }
+                      }    } 
+                            
+    function aviso(){
+                swal({   
+		title: "ERROR, COMPLETE TODOS LOS DATOS",   
+		text: "",   
+		timer: 2000,   
+                showConfirmButton: false
+                    }
+                        ); 
+                $.preloader.stop();
+            }
+            
+    function aviso2(){
+                swal({   
+		title: "CORRECTO",   
+		text: "",   
+		timer: 2000,   
+                showConfirmButton: false
+            }
+                        );  }
+            
+    function ver_div(){
+        var disposicion=$("#disposicion").val();
+            if (disposicion==="6"||disposicion==="7"||disposicion==="9"){
+                $("#contenido_grilla").show();
+                $("#div_registro").show();}
+            if (disposicion==="8"){
+                $("#contenido_grilla").hide();
+                $("#div_registro").show();
+                }
+                }
+        function elminar_fila() {
+       
+       
+        $(document).on('click', '.borrar', function (event) {
+            event.preventDefault();
+            $(this).closest('tr').remove();
+        });
+    
+        }
+  
+  
+  function enviar_datos_lotes(total){
+    
+    
+    Swal.fire({
+           title: 'CONFIRMACION',
+           text: "DESEA REGISTRAR LOS DATOS?",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+           confirmButtonText: 'SI, REGISTRAR!',
+           cancelButtonText: 'NO, CANCELAR!'
+    }).then((result) => {
+        if (result.value) {
+        Swal.fire({
+                title: 'PROCESANDO!',
+                html: 'ESPERE<strong></strong>...',
+                allowOutsideClick: false,
+                onBeforeOpen: () => {
+                    Swal.showLoading()
+                    timerInterval = setInterval(() => {
+                        Swal.getContent().querySelector('strong')
+                            .textContent = Swal.getTimerLeft()
+                    }, 1000)
+                } 
+            });  
+             $.ajax({                        
+           type: "POST",                 
+           url: ruta_controles+"control_registro.jsp",                    
+           data: ({ txt_cantidad:total,fecha_puesta:$('#fecha_puesta').val(),cod_carrito:$('#cod_carrito').val(),
+                    tipo_huevo:$('#tipo_huevo').val(),unidad_medida:$('#unidad_medida').val(),
+                    hora_desde:$('#hora_desde').val(),hora_hasta:$('#hora_hasta').val(),
+                    calendario_registro:$('#calendario_registro').val(),tipo_aviario:$('#tipo_aviario').val(),
+                     txt_responsable:$('#txt_responsable').val(),txt_liberado:$('#txt_liberado').val(),
+                      txt_obs:$('#txt_obs').val(),cbox_reproceso:$('#cbox_reproceso').val(),
+                       cbox_sub:$('#cbox_sub').val(),cbox_zona_liberado:$('#cbox_zona_liberado').val()  }),
+           success: function(data)            
+           {    if(data.tipo_respuesta=="1"){
+                 Swal.fire(data.mensaje, '', 'success');
+                            traer_registro();
+           }
+           else {
+                Swal.fire(data.mensaje, '', 'error');
+           }
+                        }
+         });       
+         
+        }
+        });                          
+  }
+     
+      function enviar_datos_retenidos2() {
+
+        $.ajax({
+        type: "POST",
+        url: ruta_controles+"control_insert_retenidos.jsp",
+        data: $("#formulario_retenido").serialize(),
+        success: function(data) {
+         $('#contenido_retenido').html(data);
+                                }
+                });
+ 
+                                              };
+     
+     function enviar_datos_carromesa(id_carrito,codigo_mesa) {
+
+        $.ajax({
+          type: "POST",
+          url: ruta_controles+"control_carro_mesa.jsp",
+          data: ({id_carrito:id_carrito,codigo_mesa:codigo_mesa}),
+          
+          
+          
+            beforeSend: function () {
+            Swal.fire({
+                title: 'PROCESANDO!',
+                html: '<strong>ESPERE</strong>...',
+                allowOutsideClick: false,
+                onBeforeOpen: () => {
+                    Swal.showLoading()
+                    timerInterval = setInterval(() => {
+                        Swal.getContent().querySelector('strong')
+                            .textContent = Swal.getTimerLeft()
+                    }, 1000); }
+                        });  },
+        success: function (data) {
+            $('#'+id_carrito+'').remove();
+                  
+                swal.fire({
+              type: 'success',
+              title: "REGISTRADO CON EXITO.",
+              confirmButtonText: "CERRAR" });     
+            } 
+            
+          });
+
+       };  
+     
+      
+      
+      function enviar_datos_reproceso() {
+
+        $.ajax({
+          type: "POST",
+          url: ruta_controles+"control_reproceso.jsp",
+          data: $("#formulario_reproceso").serialize(),
+          success: function(data) {
+          $('#contenedor_grilla_reproceso').html(data);
+                                    }
+        });
+
+       }; 

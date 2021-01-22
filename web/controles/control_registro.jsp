@@ -10,7 +10,7 @@
  
 <%@ page contentType="application/json; charset=utf-8" %>
 
-<%@include  file="chequearsesion.jsp" %>
+<%@include  file="../chequearsesion.jsp" %>
 <%    
     JSONObject ob = new JSONObject();
     Connection cn = conexion.crearConexion();

@@ -1,7 +1,7 @@
    <%@page import="java.sql.PreparedStatement"%>
 <%@page import="javax.swing.JOptionPane"%>
 <%@page import="java.sql.Connection"%>
-<%@include  file="chequearsesion.jsp" %>
+<%@include  file="../chequearsesion.jsp" %>
 <jsp:useBean id="conexion" class="clases.bdconexion1" scope="page" />
 <jsp:useBean id="fuente" class="clases.fuentedato" scope="page"/>
 <%

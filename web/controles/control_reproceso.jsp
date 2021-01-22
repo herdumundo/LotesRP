@@ -4,7 +4,7 @@
 <%@page import="javax.swing.JOptionPane"%>
 <jsp:useBean id="conexion" class="clases.bdconexion1" scope="page" />
 <jsp:useBean id="fuente" class="clases.fuentedato" scope="page"/>
-<%@include  file="chequearsesion.jsp" %>
+<%@include  file="../chequearsesion.jsp" %>
 <%
                      Connection cn = conexion.crearConexion();
      // Asignar conexion al objeto manejador de datos

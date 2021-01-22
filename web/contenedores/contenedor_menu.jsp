@@ -21,15 +21,15 @@
     
     
 
-<div class="col-xl-3 col-sm-6 mb-3 "   >
-          <div class="card text-white bg-primary o-hidden h-100" onclick="traer_registro()">
+<div class="col-xl-3 col-sm-6 mb-3 "   onclick="traer_registro()" >
+          <div class="card text-white bg-primary o-hidden h-100">
             <div class="card-body">
               <div class="card-body-icon">
                 <i class="fa fa-fw fa-registered"></i>
               </div>
               <div class="mr-5">Registro</div>
             </div>
-              <a id="boton_registrar" class="card-footer text-white clearfix small z-1" href="#" onclick="traer_registro()">
+              <a id="boton_registrar" class="card-footer text-white clearfix small z-1"  ">
               <span class="float-left">IR</span>
               <span class="float-right">
                 <i class="fa fa-angle-right"></i>
@@ -42,15 +42,15 @@
 
  
 
-    <div class="col-xl-3 col-sm-6 mb-3" >
-          <div class="card text-white bg-dark o-hidden h-100" onclick="traer_carro_mesa()">
+    <div class="col-xl-3 col-sm-6 mb-3" onclick="ir_carro_a_mesa()">
+          <div class="card text-white bg-dark o-hidden h-100" >
             <div class="card-body">
               <div class="card-body-icon">
                 <i class="fa fa-fw fa-cart-plus"></i>
               </div>
               <div class="mr-5">Carros a mesas</div>
             </div>
-              <a id="boton_eliminar" class="card-footer text-white clearfix small z-1" href="#" onclick="traer_carro_mesa()">
+              <a id="boton_eliminar" class="card-footer text-white clearfix small z-1"  >
               <span class="float-left">IR</span>
               <span class="float-right">
                 <i class="fa fa-angle-right"></i>

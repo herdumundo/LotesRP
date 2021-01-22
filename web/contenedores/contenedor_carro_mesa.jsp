@@ -1,10 +1,7 @@
-
-
-
-<%@ page language="java" import="java.sql.*" errorPage="error.jsp" %>
+ <%@ page language="java" import="java.sql.*" errorPage="error.jsp" %>
  <jsp:useBean id="conexion" class="clases.bdconexion1" scope="page" />
  <jsp:useBean id="fuente" class="clases.fuentedato" scope="page"/>   
-<%@include  file="chequearsesion.jsp" %>
+<%@include  file="../chequearsesion.jsp" %>
       <%
           String area_registro = (String) sesionOk.getAttribute("clasificadora"); 
           
@@ -39,22 +36,8 @@
             
             <input type="button" class="form-control"  value="Buscar" onclick="traer_grilla_carromesa($('#calendario_mesa').val())" >
  
-    
-    
-            <div id="div_grilla_carromesa">
-                <br>
-                  <div   class="row">
-            <div class="col-md-12">
-                <div class="panel panel-primary">
-                    
-                    <input class="form-control" id="buscar_carromesa" type="text" placeholder="Buscar">
-                        <table  id="tabla_carromesa" data-row-style="rowStyle" class="table"data-toggle="table" data-click-to-select="true">
+     <div id="div_grilla_carromesa">
               
-              
-                        </table>
-                </div> 
-            </div> 
-          </div> 
                 
                 
             </div>

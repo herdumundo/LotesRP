@@ -1,5 +1,5 @@
 <%@ page language="java" import="java.sql.*" errorPage="error.jsp" %>
-  <%@include  file="chequearsesion.jsp" %>
+  <%@include  file="../chequearsesion.jsp" %>
  
 <div id="div_grilla_registro">
     
@@ -39,9 +39,8 @@
           </select>
                       <br>
                      <input type="submit" class="form-control bg-primary"  value="REGISTRAR" 
-                   id="btn_registrar " name="btn_registrar "
-                   onclick="$('#form_agregar').on('submit', function (event) {event.preventDefault(); registrar_tipo_reproceso($('#select_registrar').val(),$('#txt_tipo_reproceso_registrar').val(),$('#select_tipo_sub_agregar').val());});">
-  
+                            id="btn_registrar " name="btn_registrar " onclick="$('#form_agregar').on('submit', function (event) {event.preventDefault(); registrar_tipo_reproceso($('#select_registrar').val(),$('#txt_tipo_reproceso_registrar').val(),$('#select_tipo_sub_agregar').val());});">
+ 
           </div>
         </div>
       </div>

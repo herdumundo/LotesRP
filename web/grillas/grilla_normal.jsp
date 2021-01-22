@@ -3,29 +3,19 @@
 <%@ page language="java" import="java.sql.*" errorPage="error.jsp" %>
 <jsp:useBean id="conexion" class="clases.bdconexion1" scope="page" />
 <jsp:useBean id="fuente" class="clases.fuentedato" scope="page"/>
-<%@include  file="chequearsesion.jsp" %>
+<%@include  file="../chequearsesion.jsp" %>
  
-<%
-  
-// Crear objeto de conexion al DB
-	// Crear objeto de conexion al DB
-		Connection cn = conexion.crearConexion();
-	// Asignar conexion al objeto manejador de datos
-	fuente.setConexion(cn);
-       //Parametros
-       String calendario    = request.getParameter("calendario_informe");
-       String area = (String) sesionOk.getAttribute("clasificadora");
-       //Campos de textos de fallas////////////////////////
-       
-      
-       
-     
- 
- 
-   %>
+<% 
+    Connection cn = conexion.crearConexion();
+    // Asignar conexion al objeto manejador de datos
+    fuente.setConexion(cn);
+    //Parametros
+    String calendario    = request.getParameter("calendario_informe");
+    String area = (String) sesionOk.getAttribute("clasificadora"); %>
    
-   
-    <tr>
+    <table    id="grilla_registros" class="table" data-row-style="rowStyle" data-toggle="table" data-click-to-select="true">
+                               
+        <thead>    <tr>
                         <th>Fecha clasifi</th>
                         <th>Nro. carro</th>
                         <th>Nro. MESA</th>
@@ -42,7 +32,8 @@
                         <th>Liberado por</th> 
                         <th>Comentario</th> 
                         <th>Estado liberación</th> 
-    </tr>
+    </tr></thead>
+        <tbody>
         <%
       
       
@@ -78,17 +69,7 @@
             else {
                 estado_liberacion="";
             }
-         
- 
-     if (nro_mesa.trim().length()>0) 
-    {
-    fila="bgcolor='#66ff33'";
-    }
-    else
-    { 
-    fila="bgcolor='#ffffff'"; 
-    }
-    %> 
+        %> 
     <tr <%=fila%> > 
                             <td><%=rs.getString(1)%>    </td>
                             <td><%=rs.getString(2)%>    </td>
@@ -108,7 +89,7 @@
                             <td><%=estado_liberacion%>   </td>  
                              
                      
-   </tr>
-       <% } %>
+   </tr>  <% } %></tbody>    </table>
+     
   
     
