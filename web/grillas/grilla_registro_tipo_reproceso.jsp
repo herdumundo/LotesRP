@@ -9,7 +9,7 @@
    
         <input type="button" class="form-control bg-primary" value="CREAR TIPO DE REPROCESO" data-toggle="modal" data-target="#modal_agregar" >
         
-            <table id="tabla_reproceso" border="1">
+        <table id="tabla_reproceso" class="table" border="1">
             <thead>
                 <tr >
                     <th>ID</th>
