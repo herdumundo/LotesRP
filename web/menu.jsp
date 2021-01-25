@@ -18,7 +18,8 @@
     <link href="estilos/css/styles_loading.css" rel="stylesheet">  
       
   
-</head>
+</head><!-- comment -->
+ 
 
  <body onload="traer_menu('<%=perfil%>');">   <!-- Navigation-->
      <input type="hiden" id="perfil" value="<%=perfil%>">
@@ -66,7 +67,7 @@
       <div id="contenido_registros">
         
        </div>
-      
+      <br> <br>
         
        
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -88,7 +89,7 @@
     </div>
       
      
- 
+
     <script src="jquery/sweetalert.min.js" type="text/javascript"></script>
      <script src="estilos/vendor/jquery/jquery.min.js"></script>
     <script src="estilos/vendor/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
@@ -101,10 +102,20 @@
     <script src="estilos/js/sb-admin-datatables.min.js"></script>
      <script src="plugins/gijgo-combined-1.9.11/js/popper.min.js" type="text/javascript"></script>
     <script src="jquery/multiselect.js"></script>
-      <script src="jquery/traer_clases.js?v=1.0.6" type="text/javascript"></script>
-     <script src="jquery/formulas.js?v=1.0.4" type="text/javascript"></script>
+      <script src="jquery/traer_clases.js?v=1.0.7" type="text/javascript"></script>
+     <script src="jquery/formulas.js?v=1.0.7" type="text/javascript"></script>
   
     </div> 
 </body>
-
+<footer class="py-4 bg-light mt-auto fixed-bottom bg-dark">
+                    <div class="container-fluid">
+                        <div class="d-flex align-items-center justify-content-between small">
+                            <div class="text-muted">Grupo Maehara 2021 V.1.0</div>
+                            <div>
+                                 ·
+                                <a href="#">Centro de clasificaciones de huevos.</a>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
 </html>
