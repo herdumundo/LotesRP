@@ -88,7 +88,17 @@
       </div>
     </div>
       
-     
+    <footer class="py-4 bg-light mt-auto fixed-bottom bg-dark">
+        <div class="container-fluid">
+                        <div class="d-flex align-items-center justify-content-between small">
+                            <div class="text-muted">Grupo Maehara 2021 V.1.0</div>
+                            <div>
+                                 ·
+                                <a href="#">Centro de clasificaciones de huevos.</a>
+                            </div>
+                        </div>
+        </div>
+    </footer>
 
     <script src="jquery/sweetalert.min.js" type="text/javascript"></script>
      <script src="estilos/vendor/jquery/jquery.min.js"></script>
@@ -107,15 +117,5 @@
   
     </div> 
 </body>
-<footer class="py-4 bg-light mt-auto fixed-bottom bg-dark">
-                    <div class="container-fluid">
-                        <div class="d-flex align-items-center justify-content-between small">
-                            <div class="text-muted">Grupo Maehara 2021 V.1.0</div>
-                            <div>
-                                 ·
-                                <a href="#">Centro de clasificaciones de huevos.</a>
-                            </div>
-                        </div>
-                    </div>
-                </footer>
+
 </html>
