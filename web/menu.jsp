@@ -101,19 +101,19 @@
     </footer>
 
     <script src="jquery/sweetalert.min.js" type="text/javascript"></script>
-     <script src="estilos/vendor/jquery/jquery.min.js"></script>
+    <script src="estilos/vendor/jquery/jquery.min.js"></script>
     <script src="estilos/vendor/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
     <script src="estilos/vendor/jquery-easing/jquery.easing.min.js"></script>
     <script src="jquery/data_picker.js"></script>
     <script src="jquery/data_picker_2.js" type="text/javascript"></script>
-     <script src="estilos/vendor/datatables/jquery.dataTables.js"></script>
+    <script src="estilos/vendor/datatables/jquery.dataTables.js"></script>
     <script src="estilos/vendor/datatables/dataTables.bootstrap4.js"></script>
     <script src="estilos/js/sb-admin.min.js"></script>
     <script src="estilos/js/sb-admin-datatables.min.js"></script>
-     <script src="plugins/gijgo-combined-1.9.11/js/popper.min.js" type="text/javascript"></script>
+    <script src="plugins/gijgo-combined-1.9.11/js/popper.min.js" type="text/javascript"></script>
     <script src="jquery/multiselect.js"></script>
-      <script src="jquery/traer_clases.js?v=1.0.7" type="text/javascript"></script>
-     <script src="jquery/formulas.js?v=1.0.7" type="text/javascript"></script>
+    <script src="jquery/traer_clases.js?v=1.0.8" type="text/javascript"></script>
+    <script src="jquery/formulas.js?v=1.0.8" type="text/javascript"></script>
   
     </div> 
 </body>
