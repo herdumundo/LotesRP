@@ -121,11 +121,11 @@
         + "cod_clasificacion,fecha_puesta,hora_clasificacion,cod_lote,"
         + "resp_clasificacion,u_medida,cantidad,estado,estado_liberacion"
         + ",clasificadora,empacadora,aviario,tipo_almacenamiento,liberado_por,"
-        + "comentario,zona_falla,resp_control_calidad,clasificadora_actual)"
+        + "comentario,zona_falla,resp_control_calidad,clasificadora_actual,clasificadora_origen)"
         + "values( '"+fecha_formateada+"','"+nrocarro+"','"+tipo_huevo_formateado+"','"+categoria+
         "','"+fecha_puesta_form+"','"+hora_desde_hasta+"','"+lote+"',upper('"+responsable+"'),'"+unidad_medida+
         "','"+cantidad+"','A','L','"+clasificadora+"','"+empacadora_formateada+"','"+tipo_aviario+"','-',"
-        + " upper('"+liberado+"'),upper('"+comentario+"'),'"+combobox+"','"+nombre_usuario+"','"+clasificadora+"')";
+        + " upper('"+liberado+"'),upper('"+comentario+"'),'"+combobox+"','"+nombre_usuario+"','"+clasificadora+"','"+clasificadora+"')";
      
                     PreparedStatement ps = cn.prepareStatement(Insertar);
                     ps.executeUpdate(); 

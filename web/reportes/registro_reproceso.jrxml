@@ -16,7 +16,7 @@
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[ exec rep_subproducto_reproceso @fecha_clasificacion=$P{fecha},@tipo_huevo=$P{tipo_reproceso},@cod_clasificacion=$P{categoria},@clasificadora=$P{clasificadora}]]>
+		<![CDATA[exec rep_subproducto_reproceso @fecha_clasificacion=$P{fecha},@tipo_huevo=$P{tipo_reproceso},@cod_clasificacion=$P{categoria},@clasificadora=$P{clasificadora}]]>
 	</queryString>
 	<field name="fecha de clasificacion" class="java.lang.String"/>
 	<field name="cod_carrito" class="java.lang.String"/>
@@ -82,7 +82,7 @@
 				<textElement>
 					<font size="8" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Rev.00]]></text>
+				<text><![CDATA[Rev.01]]></text>
 			</staticText>
 			<line>
 				<reportElement x="138" y="0" width="1" height="41" uuid="d9e3cf70-72f4-42fa-b0a5-21522574b891"/>

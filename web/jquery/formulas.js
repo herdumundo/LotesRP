@@ -153,74 +153,57 @@
  
  //LIBERADOS
  
-    function visualizar_zona_liberado() {
-    
-    
-    var tipo_huevo=$("#tipo_huevo");
-   
- 
-      
-      
-      
-      if (tipo_huevo.val()==="9"){
-        $('#div_kgramos').show();
-        $('#div_cant_plancha').hide();
-         
-           $('#div_zona_liberado').show();
+    function visualizar_zona_liberado() 
+    {
+        var tipo_huevo=$("#tipo_huevo");
+        if (tipo_huevo.val()==="9")
+        {
+            $('#div_kgramos').show();
+            $('#div_cant_plancha').hide();
+            $('#div_zona_liberado').show();
             $('#div_reproceso_liberado').hide();
             $('#div_sub_liberado').hide();
             $('#div_grupo_aviario_almacenamiento').show();
             $('#div_empacadora').hide();
-               
-             //$('#div_responsable_liberado').hide();
-             $('#div_estado_liberado_registro').hide();
-             $("#cbox_zona_liberado").prop('required',true);
-             $("#cbox_reproceso").prop('required',false);
-             $("#cbox_zona_liberado").prop('required',false);
-               
-                 $("#txt_liberado").prop('required',false);
-                  $("#tipo_aviario").prop('required',false);
-                  $("#tipo_almacenamiento").prop('required',false);
-                  $("#txt_liberado").val('');
-                  $("#nro_empacadora").prop('required',false);
-                
-        setear_codigo_rotos();
-          
-      }
-      
-      
-      
-      
-      
-      
-      if (tipo_huevo.val()==="RP"){
-           $('#div_kgramos').hide();
-        $('#div_cant_plancha').show();
-             $('#div_zona_liberado').hide();
+            $('#div_estado_liberado_registro').hide();
+            $("#cbox_zona_liberado").prop('required',true);
+            $("#cbox_reproceso").prop('required',false);
+            $("#cbox_zona_liberado").prop('required',false);
+            $("#txt_liberado").prop('required',false);
+            $("#tipo_aviario").prop('required',false);
+            $("#tipo_almacenamiento").prop('required',false);
+            $("#txt_liberado").val('');
+            $("#nro_empacadora").prop('required',false);
+            setear_codigo_rotos();
+           $('#txt_responsable').attr('placeholder', 'IDENTIFICACION');
+
+        }
+        else if (tipo_huevo.val()==="RP")
+        {
+            $('#div_kgramos').hide();
+            $('#div_cant_plancha').show();
+            $('#div_zona_liberado').hide();
             $('#div_reproceso_liberado').show();
             $('#div_sub_liberado').hide();
             $('#div_empacadora').hide();
-           // $('#div_grupo_aviario_almacenamiento').hide();
             $('#div_estado_liberado_registro').hide();
             $('#txt_liberado').hide();
-            
-                          $("#cbox_reproceso").prop('required',true);
-                          $("#nro_empacadora").prop('required',false);
-                        //  $("#tipo_aviario").prop('required',false);
-                        //  $("#tipo_almacenamiento").prop('required',false);
-                          $("#cbox_sub").prop('required',false);
-                          $("#cbox_zona_liberado").prop('required',false);
-                          $("#txt_liberado").prop('required',false);
-                          $("#txt_liberado").val('');
-                        
-                        
-                        limpiar_codigo_rotos();
-                                    }
-     
-      
-        if (tipo_huevo.val()==="8"){
-          $('#div_kgramos').hide();
-        $('#div_cant_plancha').show();
+            $("#cbox_reproceso").prop('required',true);
+            $("#nro_empacadora").prop('required',false);
+            $("#cbox_sub").prop('required',false);
+            $("#cbox_zona_liberado").prop('required',false);
+            $("#txt_liberado").prop('required',false);
+            $("#txt_liberado").val('');
+            limpiar_codigo_rotos();
+           $('#txt_responsable').attr('placeholder', 'RESPONSABLE');
+
+        }
+
+
+        else if (tipo_huevo.val()==="8")
+        {
+            $('#div_kgramos').hide();
+            $('#div_cant_plancha').show();
             $('#div_zona_liberado').hide();
             $('#div_reproceso_liberado').hide();
             $('#div_sub_liberado').show();
@@ -228,22 +211,18 @@
             $('#div_estado_liberado_registro').hide();
             $('#txt_liberado').hide();
             $('#div_grupo_aviario_almacenamiento').show();
-          //  $("#cbox_sub").prop('required',true);
-           $("#cbox_zona_liberado").prop('required',false);
+            $("#cbox_zona_liberado").prop('required',false);
             $("#cbox_reproceso").prop('required',false);
-            
-                 
-                         $("#txt_liberado").prop('required',false);
-                         $("#tipo_aviario").prop('required',false);
-                        // $("#tipo_almacenamiento").prop('required',false);
-                         $("#txt_liberado").val('');
-                         $("#nro_empacadora").prop('required',false); 
- 
-                   
-                    limpiar_codigo_rotos();
-                                        }
+            $("#txt_liberado").prop('required',false);
+            $("#tipo_aviario").prop('required',false);
+            $("#txt_liberado").val('');
+            $("#nro_empacadora").prop('required',false); 
+            limpiar_codigo_rotos();
+            $('#txt_responsable').attr('placeholder', 'RESPONSABLE');
+
+        }
        
-                                    }
+    }
     
                   
                     function setear_codigo_rotos()

@@ -27,22 +27,19 @@
             </div> 
             <br>
             <div class="form-group">
-            <div class="input-group">
-               <select class="form-control" name="tipo_huevo" id="tipo_huevo"   onchange="limpiar_campos();cargar_unidad_medida();visualizar_zona_liberado()">
-            <OPTION selected disabled>SELECCIONAR TIPO</OPTION>
-             
-            <OPTION VALUE="8">SUBPRODUCTO</OPTION>
-            <OPTION VALUE="9">R</OPTION>
-            <OPTION VALUE="RP">RP</OPTION>
-            </select>  
-            <span class="input-group-addon">-</span>
-            <div class="input-append">  
-            <input id="fecha_puesta" name="fecha_puesta" data-format="yyyy/mm/dd"  width="276" value="<%=rs.getString(1)%>" placeholder="Fecha puesta"  />
-    
-            <%}
-            %> 
-            </div> 
-            </div>
+                <div class="input-group">
+                    <select class="form-control" name="tipo_huevo" id="tipo_huevo"   onchange="limpiar_campos();cargar_unidad_medida();visualizar_zona_liberado()">
+                        <OPTION selected disabled>SELECCIONAR TIPO</OPTION>
+                        <OPTION VALUE="8">SUBPRODUCTO</OPTION>
+                        <OPTION VALUE="9">R</OPTION>
+                        <OPTION VALUE="RP">RP</OPTION>
+                    </select>  
+                    <span class="input-group-addon">-</span>
+                    <div class="input-append">  
+                    <input id="fecha_puesta" name="fecha_puesta" data-format="yyyy/mm/dd"  width="276" value="<%=rs.getString(1)%>" placeholder="Fecha puesta"  />
+                    <%} %> 
+                    </div> 
+                </div>
             </div>
     
             <div class="form-group">

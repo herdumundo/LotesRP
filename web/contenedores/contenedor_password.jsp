@@ -14,7 +14,7 @@ String cod_usuario = (String) sesionOk.getAttribute("cod_usuario");
    
     <div class="content-wrapper">
     <div class="container-fluid">
-        <form id="frm_agregar" name="frm_agregar" action="control_cambio_pass.jsp" method="POST">
+        <form id="frm_agregar" name="frm_agregar" action="controles/control_cambio_pass.jsp" method="POST">
          <span class="input-group-addon">USUARIO</span> 
   
          <input type="text" class="form-control" name="usuario"  value="<%=usuario%> " readonly="readonly" required="true">
