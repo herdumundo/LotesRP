@@ -1,0 +1,470 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="897c915a-d50c-407b-b77d-dbf0727a7ef8">
+	<property name="ireport.zoom" value="1.500000000000006"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="clasificadora" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="fecha" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="tipo" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[exec mae_ptc_report_reproceso_tradicional @fecha_puesta=$P{fecha}, @clasificadora=$P{clasificadora},@tipo=$P{tipo}]]>
+	</queryString>
+	<field name="fecha de clasificacion" class="java.lang.String"/>
+	<field name="cod_carrito" class="java.lang.String"/>
+	<field name="resp_clasificacion" class="java.lang.String"/>
+	<field name="hora_clasificacion" class="java.lang.String"/>
+	<field name="tipo de reproc o subto." class="java.lang.String"/>
+	<field name="cantidad" class="java.math.BigDecimal"/>
+	<field name="clasificadora" class="java.lang.String"/>
+	<field name="cod_clasificacion" class="java.lang.String"/>
+	<field name="tipo_huevo" class="java.lang.String"/>
+	<field name="cod_cambio" class="java.lang.String"/>
+	<field name="fecha_pueta" class="java.lang.String"/>
+	<field name="comentario" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="43" splitType="Stretch">
+			<staticText>
+				<reportElement x="11" y="0" width="74" height="20" uuid="3b53483e-b85c-45e4-ab7b-9b54a354db50"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MAEHARA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="87" y="4" width="23" height="20" uuid="8218c726-22d0-4369-b7bc-c52004722b54"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[S.A.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="11" y="20" width="122" height="20" uuid="5a6900d5-4a7f-4249-86ec-124a7d67c64b"/>
+				<textElement>
+					<font size="5" isBold="true"/>
+				</textElement>
+				<text><![CDATA[AGROPECUARIA COMERCIAL E INDUSTRIAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="141" y="4" width="348" height="16" uuid="aec7c5d4-3ed3-4a9a-93d8-136f18143628"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FORMULARIO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="140" y="20" width="349" height="16" uuid="57403f8e-bd67-4b01-a9e1-8923319bc5ed"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RECEPCIÓN DE HUEVOS PARA LAVAR]]></text>
+			</staticText>
+			<line>
+				<reportElement x="138" y="0" width="1" height="41" uuid="d9e3cf70-72f4-42fa-b0a5-21522574b891"/>
+			</line>
+			<line>
+				<reportElement x="489" y="1" width="1" height="42" uuid="7d267100-4ecd-4d49-b7d8-9e05d1b849d1"/>
+			</line>
+			<line>
+				<reportElement x="0" y="-1" width="572" height="2" uuid="2ec92792-952f-4a44-aa58-34876910fcf9"/>
+			</line>
+			<line>
+				<reportElement x="0" y="41" width="572" height="2" uuid="d38b870d-6119-4aab-8757-823aa19bdbcf"/>
+			</line>
+			<line>
+				<reportElement x="571" y="1" width="1" height="42" uuid="8847df4a-9c53-4adf-9c73-8dff77b2866c"/>
+			</line>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="24" splitType="Stretch">
+			<textField>
+				<reportElement x="155" y="1" width="100" height="22" uuid="4e3d9e0b-e702-48ff-a020-04485583bdb2"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{clasificadora}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="129" y="1" width="31" height="22" uuid="fb65f181-1e6c-4768-b5bc-a1eeebafba8b"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Area:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="571" y="0" width="1" height="24" uuid="0f58a415-b9ca-44f9-aaeb-463c9dc521f5"/>
+			</line>
+			<staticText>
+				<reportElement x="469" y="1" width="53" height="22" uuid="2b25a17b-ee76-41ec-afa1-b1657c5b632c"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Categoría:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="297" y="1" width="171" height="22" uuid="342fbeea-1928-4b40-8321-cc35cc74fb25"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[(  $F{tipo_huevo}.equalsIgnoreCase("RP")  ? "Reproceso" :
+$F{tipo_huevo}.equalsIgnoreCase("PI")  ? "Subproducto" :
+
+ 
+$F{tipo_huevo}
+   )]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="523" y="1" width="46" height="22" uuid="6868293b-c86c-4af2-9c8b-1fce0c5e0fed"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cod_clasificacion}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="2" y="1" width="57" height="22" uuid="d6d4154c-0a51-4c97-9a56-5c1e8243150d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha de recepcion]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="51" y="1" width="66" height="22" uuid="ba9d9d04-bb54-485b-a14c-8664723ecfba"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fecha de clasificacion}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="25" splitType="Stretch">
+			<staticText>
+				<reportElement x="76" y="2" width="62" height="20" uuid="68d22a4e-1d6c-4cdb-a7a4-2af1eaa1e482"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Código]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="141" y="2" width="60" height="20" uuid="3af5b625-e5d1-4f04-a97b-6e62068b4dd7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Responsable]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="213" y="2" width="69" height="20" uuid="cf147ec2-dd1f-4c53-9016-ef5c709ea091"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Hora]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="296" y="2" width="117" height="20" uuid="46a66282-6633-4780-98c0-90c8ef87e5b7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Detalle del Reproc. o Subpto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="414" y="2" width="54" height="20" uuid="96819942-cc8d-4c93-9b86-1cb7776d7130"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cantidad]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="1" width="572" height="2" uuid="7b2b1750-eb89-4d17-8340-5710d6c4bdd7"/>
+			</line>
+			<line>
+				<reportElement x="74" y="1" width="1" height="24" uuid="cfb28efc-4605-430e-a419-992184be00c7"/>
+			</line>
+			<line>
+				<reportElement x="0" y="1" width="1" height="24" uuid="23647ed6-b98d-41ac-ade1-010ca9fdcc7a"/>
+			</line>
+			<line>
+				<reportElement x="139" y="2" width="1" height="23" uuid="2db47e52-c30a-4040-bf1e-ee52ebd082d0"/>
+			</line>
+			<line>
+				<reportElement x="208" y="2" width="1" height="23" uuid="bb0af138-4d00-44e2-bade-a2e08a4f5f78"/>
+			</line>
+			<line>
+				<reportElement x="295" y="2" width="1" height="23" uuid="c32162dc-b69a-4e74-a150-6db2c10e5d5e"/>
+			</line>
+			<line>
+				<reportElement x="413" y="3" width="1" height="22" uuid="99261524-e207-4b10-898f-edc2600fc70a"/>
+			</line>
+			<line>
+				<reportElement x="571" y="0" width="1" height="25" uuid="3e8e58eb-80aa-4092-a5a8-7e27b740df60"/>
+			</line>
+			<line>
+				<reportElement x="0" y="-67" width="1" height="68" uuid="0360f2ab-e0b0-443a-b9f9-21ff1adb4ddf"/>
+			</line>
+			<staticText>
+				<reportElement x="2" y="2" width="72" height="20" uuid="baea5896-9cfe-465b-a9fe-736e9dfd3a38"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[F. de Puesta]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="118" y="2" width="10" height="10" uuid="152dcaf2-e36c-4626-be49-83f006fc489c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[1]]></text>
+			</staticText>
+			<line>
+				<reportElement x="468" y="3" width="1" height="22" uuid="5d52475e-aea2-425d-bb28-2a28726e1e35"/>
+			</line>
+			<staticText>
+				<reportElement x="471" y="5" width="98" height="20" uuid="117f492e-c53a-403a-b590-6ef70910393a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Comentario]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="75" y="2" width="63" height="15" uuid="5c0e3ef5-987f-4411-a1f1-fedffa885f9e"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cod_carrito}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="297" y="2" width="116" height="16" uuid="f819bd96-fef7-4eb5-afc9-61faa91663da"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tipo de reproc o subto.}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="414" y="3" width="50" height="15" uuid="89cdaccc-b042-463d-b07e-147e099600f0"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cantidad}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="0" width="572" height="2" uuid="9c9ee64d-ed54-415e-9a49-996f1b039c0f"/>
+			</line>
+			<line>
+				<reportElement x="0" y="0" width="1" height="18" uuid="555e39b1-5b4e-47e7-b295-46323ab59510"/>
+			</line>
+			<line>
+				<reportElement x="74" y="0" width="1" height="18" uuid="36e98a64-ee08-44f9-b2ef-5499563aab99"/>
+			</line>
+			<line>
+				<reportElement x="139" y="0" width="1" height="18" uuid="2645d631-a2fe-4667-a615-16be19932b87"/>
+			</line>
+			<line>
+				<reportElement x="208" y="1" width="1" height="18" uuid="da01d2a9-4f49-4432-9951-519e6993881e"/>
+			</line>
+			<line>
+				<reportElement x="295" y="1" width="1" height="18" uuid="90c855e5-e5b8-4f90-909d-c69f7938c1e2"/>
+			</line>
+			<line>
+				<reportElement x="413" y="1" width="1" height="19" uuid="53bddfcc-9357-4673-ae41-fd38707ecaab"/>
+			</line>
+			<line>
+				<reportElement x="571" y="2" width="1" height="18" uuid="a5740e9e-6795-4550-a3c6-6ef62ada1476"/>
+			</line>
+			<textField>
+				<reportElement x="141" y="3" width="60" height="15" uuid="6edd58af-7b40-449b-b009-bfa6d045ced0"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{resp_clasificacion}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="18" width="572" height="2" uuid="53793ef1-7f28-43a8-821f-aa0fb19d7642"/>
+			</line>
+			<textField>
+				<reportElement x="0" y="2" width="74" height="16" uuid="866e9a8c-ef3c-4c42-9f3f-9f6939150266"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fecha_pueta}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="468" y="1" width="1" height="19" uuid="0d8f29d2-a3b4-404e-bd07-2088d13a2910"/>
+			</line>
+			<textField>
+				<reportElement x="471" y="3" width="100" height="15" uuid="deb83d51-7b9e-4566-b043-c6d2b89f2aef"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{comentario}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="209" y="0" width="86" height="17" uuid="cbec1a87-82ae-4e00-9f10-3df1baaac552"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[N/A]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="17"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="128" splitType="Stretch">
+			<staticText>
+				<reportElement x="8" y="36" width="62" height="20" uuid="5439b791-b527-4f31-a6c5-cdb3b1ed9890"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Generales]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="8" y="67" width="62" height="20" uuid="6afc9636-0c32-43a4-a6f8-472ba0ee260d"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Reprocesos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="100" width="62" height="20" uuid="e6b42f2e-fc9c-4ba9-bc18-a5ed7965e020"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Subproductos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="61" y="45" width="460" height="22" uuid="38edd9ec-17d5-4119-a5d3-e96c9617b043"/>
+				<textElement markup="none">
+					<font size="6" isUnderline="false"/>
+					<paragraph lineSpacing="Single" firstLineIndent="2"/>
+				</textElement>
+				<text><![CDATA[Arriba: Código inicial, Abajo: Código final. En caso de trasladar huevos de carros a mesas se indica como código inicial al código del carro y
+codigo final al de la mesa.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="62" y="65" width="207" height="10" uuid="67a6fd14-cefa-4ea1-b255-f492834c6a05"/>
+				<textElement>
+					<font size="6"/>
+				</textElement>
+				<text><![CDATA[SL: Para 2º LDO, EC: Falta o Error de Codificación, TC: Tinta corrida]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="282" y="65" width="241" height="20" uuid="8db5b2a5-a9f3-4c6d-b505-d9afd1ac501a"/>
+				<textElement>
+					<font size="6"/>
+				</textElement>
+				<text><![CDATA[S/S: Semisucios, S: Sucios, EC: Falta o Error de Codificación, D: 
+Decolorados, TC: Tinta corrida
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="62" y="87" width="207" height="39" uuid="b60d9516-359a-46e2-a7ad-31e29eadeaf0"/>
+				<textElement>
+					<font size="6"/>
+				</textElement>
+				<text><![CDATA[ F: Fisurados, MG: Manchas de grasa, FM: Microfisuras, MB: Manchas blancas, PS: Sucio post, lavado
+MT: Mancha de tinta, PM: Mancha post lavado, Bco: Blanco, OT: Otros.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="282" y="100" width="241" height="24" uuid="7596d55e-cd3e-4cd6-a10c-67ac750a21b4"/>
+				<textElement>
+					<font size="6"/>
+				</textElement>
+				<text><![CDATA[ F: Fisurados, FM: Microfisuras, MB: Manchas blancas, CF: Cáscara frágil,  MT: Mancha de tinta, Bco: Blanco, MG: Mancha de grasa, OT: Otros]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="60" y="29" width="511" height="10" uuid="1b41ae77-9228-4a8d-afd5-3764935eda6e"/>
+				<textElement markup="none">
+					<font size="6" isUnderline="false"/>
+					<paragraph lineSpacing="Single" firstLineIndent="2"/>
+				</textElement>
+				<text><![CDATA[(E/O): Del empaque o de la ovoscopia, (R): Del retenido,  (AT):Aviarios Tradicionales,(P): En pallets ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="59" y="16" width="216" height="10" uuid="66a506bf-49dd-4ebe-be1a-d7aa145076f4"/>
+				<textElement textAlignment="Center" markup="none">
+					<font size="6" isUnderline="false"/>
+					<paragraph lineSpacing="Single" firstLineIndent="2"/>
+				</textElement>
+				<text><![CDATA[CYO-Lavado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="283" y="16" width="286" height="10" uuid="68178a01-a733-401a-90fe-87c5a5537e0b"/>
+				<textElement textAlignment="Center" markup="none">
+					<font size="6" isUnderline="false"/>
+					<paragraph lineSpacing="Single" firstLineIndent="2"/>
+				</textElement>
+				<text><![CDATA[CYO-Clasificadora]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="85" width="572" height="2" uuid="f7925abd-7942-44f1-8214-f6ce68406c1d"/>
+			</line>
+			<line>
+				<reportElement x="0" y="125" width="572" height="2" uuid="a4184435-926f-45f7-9110-d16f1b12978b"/>
+			</line>
+			<line>
+				<reportElement x="0" y="61" width="572" height="2" uuid="10a3eee1-c764-4d17-a551-4859bfc373bf"/>
+			</line>
+			<line>
+				<reportElement x="60" y="39" width="512" height="2" uuid="d1b35c84-d5bf-405a-8f0d-3e4e7db1cdf6"/>
+			</line>
+			<line>
+				<reportElement x="0" y="24" width="572" height="2" uuid="43181707-055d-4aed-9c88-9fce0b5120ca"/>
+			</line>
+			<staticText>
+				<reportElement x="182" y="5" width="206" height="10" uuid="c84e2fea-3b9f-4ade-b28e-2721f58b81f7"/>
+				<textElement textAlignment="Center" markup="none">
+					<font size="6" isUnderline="false"/>
+					<paragraph lineSpacing="Single" firstLineIndent="2"/>
+				</textElement>
+				<text><![CDATA[Referencias]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="14" width="572" height="2" uuid="466e6584-4608-44c2-92a9-cdff1c3c1646"/>
+			</line>
+			<line>
+				<reportElement x="0" y="3" width="572" height="2" uuid="3b1376a2-af5a-4222-889f-06b392bf3264"/>
+			</line>
+			<line>
+				<reportElement x="275" y="61" width="1" height="65" uuid="a793dda6-1865-4dca-af98-6d5e89f3079c"/>
+			</line>
+			<line>
+				<reportElement x="59" y="3" width="1" height="121" uuid="64cca49e-26cb-4cdc-beae-0329824d4822"/>
+			</line>
+			<line>
+				<reportElement x="571" y="63" width="1" height="63" uuid="e74b3ea5-dfe6-4e60-b143-53389eec68da"/>
+			</line>
+			<line>
+				<reportElement x="0" y="3" width="1" height="57" uuid="7234bff1-5484-4b42-aa0d-b05168c2594f"/>
+			</line>
+			<line>
+				<reportElement x="0" y="61" width="1" height="63" uuid="fe9185c7-7a85-49b7-8677-c58066539e41"/>
+			</line>
+			<line>
+				<reportElement x="571" y="5" width="1" height="60" uuid="9517f0aa-cb71-4d22-af37-0facd1baf18a"/>
+			</line>
+			<line>
+				<reportElement x="275" y="15" width="1" height="10" uuid="b2d7d433-856e-4cf0-a912-d6506e788b46"/>
+			</line>
+			<staticText>
+				<reportElement x="59" y="38" width="10" height="10" uuid="c246c39a-db0c-4feb-b125-12a08aa5348d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[1]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+</jasperReport>
