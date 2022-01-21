@@ -5,7 +5,13 @@
  */
 package clases;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.IOException;
+import static java.lang.System.out;
 import java.sql.Connection;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  *
@@ -63,5 +69,8 @@ public class controles {
         catch (Exception e){
             String asd=e.getMessage();
         }
-    } 
+    }
+           
+               
+  
 }

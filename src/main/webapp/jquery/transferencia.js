@@ -54,12 +54,17 @@ function cargar_grilla_trans(tipo_huevo,cod_carrito,cod_interno,cantidad,fecha_p
    if (checkId(cod_interno)) {
         return aviso_duplicado();
     }  
-
+   
+   var planchas=parseInt(cantidad)/30;
+  var unidades=parseInt(cantidad)-(parseInt(planchas)*30);
+  
   
     $('#grilla_transfer tbody').prepend('<tr class="suma" id="row'+cod_interno + '" > '+
             '<td for="id"><b>' + cod_interno +'</b></td>'+
             '<td><b>' + cod_carrito     + '</b></td>'+
             '<td><b>' + cantidad        + '</b></td>'+
+            '<td><b>' +  parseInt(planchas)         + '</b></td>'+
+            '<td><b>' + unidades        + '</b></td>'+
             '<td><b>' + fecha_puesta    + '</b></td>'+
             '<td><b>' + tipo_huevo      +'</b></td>'+
             '<td><input type="button" value="ELIMINAR" name="remove" id="' + cod_interno + '" class="btn btn-danger btn_remove"></td> ');
@@ -84,15 +89,11 @@ function aviso_duplicado()
 } 
 
 function aviso_existencia(nro_carro) {
- 
-
     swal.fire({
         type: 'error',
         title: "CARRO NO EXISTE, "+ nro_carro,
         confirmButtonText: "CERRAR"
     });
-
-
 } 
 
 $(document).on('click', '.btn_remove', function () {
@@ -110,63 +111,56 @@ $(document).on('click', '.btn_remove', function () {
 
 
 
-function enviar_datos_transferencia(){
-    
+function enviar_datos_transferencia()
+{
     var filas = document.querySelectorAll("#grilla_transfer tbody tr");
-    var cod_lote;
-    var id;
-    var cod_carrito;
-    var estado_liberacion;
-    var motivo;
-    var estado_costeo;
-    var cantidad;
-    var tipo;
-        
-    var c = 0;
-    var valores = '';
     jsonObj = [];
+    var cont=0;
     filas.forEach(function (e) 
     {
         // obtenemos las columnas de cada fila
         var columnas = e.querySelectorAll("td");
-        
- 
-
         item = {}
-        item ["cod_interno"] = columnas[0].textContent;
-        item ["cod_carrito"] = columnas[1].textContent;
-        item ["cantidad"] = columnas[2].textContent;
-
-        jsonObj.push(item);
-  
-        /*
-        id = columnas[0].textContent;
-        cod_lote = columnas[1].textContent;  
-        cod_carrito = columnas[2].textContent;
-        estado_liberacion = columnas[6].textContent;  
-        motivo = columnas[7].textContent;  
-        cantidad = columnas[3].textContent;  
-        tipo = columnas[4].textContent;  
-        estado_costeo = columnas[9].textContent;  
-     */
-         /*  var arr = id + '-' + cod_lote+ '-' + cod_carrito+ '-' + estado_liberacion+'-'+motivo+'-'+estado_costeo+'-'+cantidad+'-'+tipo;
-        if (c == 0) {
-           
-            valores = arr;
- 
-        }
-        else {
-            valores = valores + '&' + arr;
-                }*/
-       c++;
+        item ["cod_interno"]    = columnas[0].textContent;
+        item ["cod_carrito"]    = columnas[1].textContent;
+        item ["cantidad"]       = columnas[2].textContent;
+         jsonObj.push(item);
+         cont++;
     });
-      // confirmar_registro_transfer(valores,tipo_transferencia);
-      //alert(jsonObj);
-      
-     confirmar_registro_transfer(jsonObj); 
+    
+    var destino=$("#cbox_destino").val();
+    if($("#cbox_destino").val()==null)
+    {
+        aviso_error("DEBE SELECCIONAR EL DESTINO");
+    }
+    else if($("#cbox_chofer").val()==null)
+    {
+        aviso_error("DEBE SELECCIONAR EL CHOFER");
+    }
+    else if($("#cbox_camion").val()==null)
+    {
+        aviso_error("DEBE SELECCIONAR EL CAMION");
+    }
+    else if(cont==0)
+    {
+        aviso_error("DEBE INGRESAR LOTE");
+    }   
+    else
+    {
+        var json_string = JSON.stringify(jsonObj);
+        confirmar_registro_transfer(json_string);     
+    }
 }
 
-
+function aviso_error(mensaje){
+          swal.fire
+            ({
+            type: 'error',
+            title: mensaje,
+            confirmButtonText: "CERRAR"
+            }); 
+   
+}
 function confirmar_registro_transfer(valor) {
  
     Swal.fire({
@@ -183,31 +177,29 @@ function confirmar_registro_transfer(valor) {
 
       
      
-    /* Swal.fire({
-        title: 'PROCESANDO!',
-        html: 'ESPERE<strong></strong>...',
-        allowOutsideClick: false,
-        onBeforeOpen: () => {
-            Swal.showLoading()
-            timerInterval = setInterval(() => {
-                Swal.getContent().querySelector('strong').textContent = Swal.getTimerLeft();
-            }, 1000);
-        }
-    }); */
+  
          $.ajax({
             type: "POST",
-            url: ruta_controles+'control_registro_1.jsp',
+            url: ruta_controles+'control_registro_transferencia_rp.jsp',
             data: ({
-                "Options[]":valor  }),
-             success: function (data) 
+                valor:valor ,chofer:$('#cbox_chofer').val(),destino:$('#cbox_destino').val(),camion:$('#cbox_camion').val() }),
+            beforeSend: function ()
             {
-                console.log(data);
-                
-              /*  swal.fire({
-                type: 'success',
-                title: data.tipo,
-                confirmButtonText: "CERRAR"
-            });*/
+                Swal.fire({
+                title: 'PROCESANDO!',
+                html: 'ESPERE<strong></strong>...',
+                allowOutsideClick: false,
+                onBeforeOpen: () => {
+                Swal.showLoading()
+                timerInterval = setInterval(() => {
+                Swal.getContent().querySelector('strong').textContent = Swal.getTimerLeft();
+                }, 1000);
+                }
+                });   
+            },
+                success: function (data) 
+            {
+                    aviso_registro_transfer(data.tipo_respuesta,data.mensaje)  
              } 
         });
       
@@ -222,31 +214,16 @@ function confirmar_registro_transfer(valor) {
  
   
 function aviso_registro_transfer(tipo,mensaje) {
-  //  var resultado = parseInt(resultad_final);
- 
-    if (tipo == 1) 
+  
+    if (tipo == "1") 
     {
- 
         swal.fire({
             type: 'success',
             title: mensaje,
             confirmButtonText: "CERRAR"
         });
-              ir_transferencia_menu();
+                traer_menu($('#perfil').val());
     }
-
-    else if (tipo == 3) {
-
-        swal.fire({
-            type: 'error',
-            title: mensaje,
-            confirmButtonText: "CERRAR"
-        });
-     //   traer_embarque();
-
-    }
-
-   
     else
     {
         swal.fire

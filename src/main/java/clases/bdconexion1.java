@@ -5,25 +5,19 @@ import java.sql.DriverManager;
 public class bdconexion1
 {
      
-    
+    public static Connection connect;
     public bdconexion1() {
     }
     public Connection crearConexion()  throws Exception {
-
-     
  
-       
         String clase   = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
         String motorBD = "sqlserver";
-        
-        String usuario = "sa";
-        String bd      = " GrupoMaehara";//CAMBIAR BASE DE DATOS
-        String servidor= "172.16.1.202";        
-        String clave   = "Paraguay2017";
-      
+           String servidor= "172.16.1.202";        
+       
         Class.forName(clase);
-        String cadenaConexion = "jdbc:"+motorBD+"://"+servidor+";databasename="+bd;
-        Connection connection = DriverManager.getConnection(cadenaConexion, usuario, clave);
+        String cadenaConexion = "jdbc:"+motorBD+"://"+servidor+";databasename="+variables.BD;
+        Connection connection = DriverManager.getConnection(cadenaConexion, variables.USER, variables.passwd);
+        connect=connection;
         return connection;
     }
 

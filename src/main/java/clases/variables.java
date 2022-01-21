@@ -12,5 +12,8 @@ package clases;
 public class variables {
   
     public static String valor_procedure="_test";
-    
+    public static String BD="zz_prueba_GrupoMaehara";
+    public static String BD2="zz_prueba_maehara";
+    public static String USER="cch";
+    public static String passwd="Paraguay2017";
 }

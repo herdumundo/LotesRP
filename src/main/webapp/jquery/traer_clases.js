@@ -5,6 +5,7 @@
     $(document).ready(function(){
      no_volver_atras();
      traer_menu($('#perfil').val());
+   
  });
     function no_volver_atras(){
 
@@ -141,7 +142,7 @@
         animacion_loading(); }); }
 
 
-function ir_registro_reproceso_tradicional(){
+    function ir_registro_reproceso_tradicional(){
         $("#contenido_2").html(""); 
         $.get(ruta_contenedores+'contenedor_registro_tradicional.jsp',function(res){
         $("#contenido_registros").html('');
@@ -153,7 +154,7 @@ function ir_registro_reproceso_tradicional(){
         animacion_loading(); }); }
 
 
-function ir_registro_sp_tradicional(){
+    function ir_registro_sp_tradicional(){
         $("#contenido_2").html(""); 
         $.get(ruta_contenedores+'contenedor_registro_tradicional_supro.jsp',function(res){
         $("#contenido_registros").html('');
@@ -218,11 +219,12 @@ function ir_registro_sp_tradicional(){
   
       function ir_transferencias_reprocesos()
     {
-        $.get(ruta_contenedores+'contenedor_registro_transferencias_reprocesos.jsp',function(res){
-        $("#contenido_registros").html('');
-        $("#contenido_registros").html(res);
-        $("#contenido").hide();
-                                                     });
+        $.get(ruta_contenedores+'contenedor_registro_transferencias_reprocesos.jsp',function(res)
+        {
+            $("#contenido_registros").html('');
+            $("#contenido_registros").html(res);
+            $("#contenido").hide();
+        });
 
     }  
   
@@ -232,7 +234,7 @@ function ir_registro_sp_tradicional(){
         $("#contenido_registros").html('');
         $("#contenido_registros").html(res);
         $("#contenido").hide();
-        $('#calendario_reporte_reproceso').datepicker(); });  
+        $('#calendario_informe').datepicker(); });  
         
     }  
     
@@ -811,3 +813,20 @@ traer_detalle_eliminar($('#calendario_eliminar').val())
      $(this).select();
         });
        
+ function ir_grilla_transferencia_reporte(fecha,tipo) {
+    $.ajax({
+        type: "POST",
+        url: ruta_consultas+"consulta_transferencias_botones.jsp",
+        data: ({fecha:fecha,tipo:tipo,tipo_reporte:$('#tipo_reporte').val()}),
+        
+         beforeSend: function() {
+     $('#div_cargar').show();
+            },
+        success: function(data) {
+         $('#div_grilla_tipo_transferencia').html("");
+         $('#div_grilla_tipo_transferencia').html(data);
+                                  }
+                });
+ 
+ 
+        }  

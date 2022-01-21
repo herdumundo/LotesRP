@@ -6,15 +6,13 @@ import java.sql.SQLException;
 public class ConnectionSqlServer {
     public static Connection ConnectionSQLSERVER(){
     String user = "cch";
-    String passwd = "Paraguay2017";
-     String db = "GrupoMaehara";
-   //  String db = "zz_prueba_GrupoMaehara";
+    
     Connection connection=null;
  
         try 
         {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            connection = DriverManager.getConnection("jdbc:sqlserver://172.16.1.202;databasename=" + db, user, passwd);
+            connection = DriverManager.getConnection("jdbc:sqlserver://172.16.1.202;databasename=" + variables.BD, user, variables.passwd);
         }
         catch (SQLException se) {
 

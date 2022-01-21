@@ -5,11 +5,8 @@
       <%
         String area_registro = (String) sesionOk.getAttribute("clasificadora"); 
         String area_format=    (String) sesionOk.getAttribute("area_fallas");
-    
-              
-          Connection cn = conexion.crearConexion();
-	 
-	fuente.setConexion(cn);           //CAMBIAR BASE DE DATOS                                                                                                                                                                                                                                                                                                                                                                                                                //CAMBIAR BASE DE DATOS       
+        Connection cn = conexion.crearConexion();
+        fuente.setConexion(cn);           //CAMBIAR BASE DE DATOS                                                                                                                                                                                                                                                                                                                                                                                                                //CAMBIAR BASE DE DATOS       
         ResultSet rs = fuente.obtenerDato("SELECT  convert(varchar,getdate(),111) as fecha,REPLACE(CONVERT(VARCHAR(10),  convert(varchar,getdate(),103), 5),'/','') ");
        while(rs.next()){          
  %>    

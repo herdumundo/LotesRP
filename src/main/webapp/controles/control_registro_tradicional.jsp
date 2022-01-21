@@ -98,17 +98,18 @@
         ResultSet rs4 = fuente.obtenerDato(" select * from maehara.dbo.OIGN a inner join maehara.dbo.IGN1 b on "
         + "a.docentry = b.docentry where  convert(varchar, a.docdate, 111) = convert(varchar, '"+fecha+"', 103) "
                                 + "and b.itemcode = 'HVO-00001'" );
-            if (rs4.isBeforeFirst()){
+        /*     if (rs4.isBeforeFirst()){
                   mensaje="No es posible generar registro. La fecha de clasificación ya ha sido costeada";
                     tipo_respuesta="0";
          
         }
-             /*   if (fecha_registro>fechabd) {
+               if (fecha_registro>fechabd) {
                     mensaje="Fecha de clasificacion incorrecta. Favor verifique  ";
                     tipo_respuesta="0";
       //
            }*/
-            else  if (fecha_puesta_int>fecha_registro) {
+//            else  
+if (fecha_puesta_int>fecha_registro) {
      
           mensaje="Fecha de clasificacion incorrecta. Favor verifique ";
                     tipo_respuesta="0";
