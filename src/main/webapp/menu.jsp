@@ -11,13 +11,17 @@
 <head>
   <title>MAEHARA</title>
   
-    <link href="estilos/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="estilos/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link rel="stylesheet"  type="text/css" href="estilos/css/grilla.css">
-    <link href="estilos/css/sweetalert.css" rel="stylesheet" type="text/css"/>
-    <link href="estilos/estilo_calendario.css" rel="stylesheet" type="text/css"/>
-    <link href="estilos/css/styles_loading.css" rel="stylesheet">  
-      
+        <link href="estilos/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <link href="estilos/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet"  type="text/css" href="estilos/css/grilla.css">
+        <link href="estilos/css/sweetalert.css" rel="stylesheet" type="text/css"/>
+        <link href="estilos/estilo_calendario.css" rel="stylesheet" type="text/css"/>
+        <link href="estilos/css/styles_loading.css" rel="stylesheet">  
+        <link href="estilos/css/bootstrap4-toggle.min.css" rel="stylesheet" type="text/css"/>
+        <link href="lib/themes/main.css?v=1.0.2" rel="stylesheet" />
+        <link href="lib/themes/default.css?v=1.0.2" rel="stylesheet" id="theme_base" />
+        <link href="lib/themes/default.date.css?v=1.0.2" rel="stylesheet" id="theme_date" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 </head><!-- comment -->
@@ -115,6 +119,9 @@
     <script src="estilos/js/sb-admin-datatables.min.js"></script>
     <script src="plugins/gijgo-combined-1.9.11/js/popper.min.js" type="text/javascript"></script>
     <script src="jquery/multiselect.js"></script>
+    <script src="lib/picker.js?v=3.0"></script>
+    <script src="lib/picker.date.js?v=3.0"></script>
+    <script src="lib/legacy.js?v=3.0"></script>    <script src="estilos/js/bootstrap4-toggle.js" type="text/javascript"></script>
     <script src="jquery/traer_clases.js?v=3.0" type="text/javascript"></script>
     <script src="jquery/formulas.js?v=3.0" type="text/javascript"></script>
     <script src="jquery/transferencia.js" type="text/javascript"></script>

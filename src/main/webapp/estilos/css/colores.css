@@ -1,0 +1,25 @@
+.text-verde {
+  color:  #009140;
+}
+.text-rojo {
+  color:  #FF0000;
+}
+
+.text-celeste {
+  color:  #0059bc;
+}
+
+.text-amarillo {
+  color:  #f4b30d;
+}
+.text-negro {
+  color:  #000;
+ 
+  
+}
+p.thicker {
+  font-weight: 900;
+}
+.scrollme {
+    overflow-x: auto;
+}

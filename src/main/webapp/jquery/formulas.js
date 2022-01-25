@@ -1,10 +1,89 @@
  
+ function procesar_lotes_rp()
+ {
+    var planchas,unidades,total_plancha_unidades,total,plancha_form,unidades_form,gramos,gramos_form,kg,kg_form,
+    total_gramos,total_unidad_gramos,date_inicial_consulta,date_final_consulta;
+
+    planchas=$('#txt_plancha').val();
+    unidades=$('#txt_unidad').val();
+    gramos=$('#txt_gramos').val();
+    kg=$('#txt_kg').val();
+
+  
+        
+        
+        if(planchas==""){   plancha_form="0";  } 
+        else { plancha_form=planchas;}
+        if(unidades==""){ unidades_form="0";   }
+        else { unidades_form=unidades; }
+        if(gramos==""){  gramos_form="0";  }
+        else { gramos_form=gramos;   }
+        if(kg==""){  kg_form="0";  }
+        else { kg_form=kg*1000;   }
+        
+        total_gramos=    parseFloat(gramos_form)  + parseFloat(kg_form) ;
+        total_unidad_gramos=parseFloat(total_gramos)/60;
+        total_plancha_unidades=plancha_form*30;
+        total=parseFloat(total_plancha_unidades)  + parseFloat(unidades_form)+parseFloat(total_unidad_gramos);
+       
+        if($('#calendario_registro').val()==""||$('#fecha_puesta').val()==""||$('#fecha_clas_final').val()=="")
+        {
+            mensaje_error();
+        }
+        else 
+        {
+            Swal.fire({
+            title: 'CONFIRMACION',
+            text: "DESEA REGISTRAR LOS DATOS?",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'SI, REGISTRAR!',
+            cancelButtonText: 'NO, CANCELAR!' }).then((result) => 
+            {
+                if (result.value) 
+                {
+                    Swal.fire({
+                    title: 'PROCESANDO!',
+                    html: 'ESPERE<strong></strong>...',
+                    allowOutsideClick: false,
+                    onBeforeOpen: () => 
+                    {
+                        Swal.showLoading()
+                        timerInterval = setInterval(() => {
+                        Swal.getContent().querySelector('strong').textContent = Swal.getTimerLeft(); }, 1000);
+                    } 
+                    });  
+                    $.ajax(
+                    {                        
+                        type: "POST",                 
+                        url: ruta_controles+"control_registro.jsp",                    
+                        data: $("#form-reprocesos").serialize()+"&txt_cantidad_total="+total+"&hora_inicio_form="+$('#hora_desde').val()+':'+$('#minuto_desde').val()+"&hora_final_form="+$('#hora_hasta').val()+':'+$('#minuto_hasta').val(),
+                        success: function(data)            
+                        {    
+                             if(data.tipo_respuesta==1)
+                             {
+                                 Swal.fire(data.mensaje, '', 'success');
+                                 traer_registro();
+                             }
+                             else 
+                             {
+                                  Swal.fire(data.mensaje, '', 'error');
+                             }
+                         }
+                    });       
+         
+                }
+            });   
+        }
+       
+
  
+ }
  
  function procesar() {
      
- 
-    
     var planchas,unidades,total_plancha_unidades,total,plancha_form,unidades_form,gramos,gramos_form,kg,kg_form,total_gramos,total_unidad_gramos;
     var cod_carrito,hora_desde,hora_hasta,tipo_huevo;
     cod_carrito=$('#cod_carrito').val();
@@ -220,42 +299,36 @@
             $('#div_reproceso_liberado').hide();
             $('#div_sub_liberado').hide();
             $('#div_grupo_aviario_almacenamiento').show();
-            $('#div_empacadora').hide();
             $('#div_estado_liberado_registro').hide();
-            $("#cbox_zona_liberado").prop('required',true);
-            $("#cbox_reproceso").prop('required',false);
-            $("#cbox_zona_liberado").prop('required',false);
-            $("#txt_liberado").prop('required',false);
-            $("#tipo_aviario").prop('required',false);
-            $("#tipo_almacenamiento").prop('required',false);
-            $("#txt_liberado").val('');
-            $("#nro_empacadora").prop('required',false);
+            
+            $("#cbox_reproceso").       prop('required',false);
+            $("#cbox_zona_liberado").   prop('required',false);     
+            $("#cbox_sub").             prop('required',false);
+            $("#cbox_zona_liberado").   prop('required',true);
             setear_codigo_rotos();
-           $('#txt_responsable').attr('placeholder', 'IDENTIFICACION');
-           $('#txt_responsable').hide();
+            $('#txt_responsable').attr('placeholder', 'IDENTIFICACION');
+            $('#txt_responsable').hide();
 
         }
         else if (tipo_huevo.val()==="RP")
         {
-            $('#div_kgramos').hide();
-            $('#div_cant_plancha').show();
-            $('#div_zona_liberado').hide();
-            $('#div_reproceso_liberado').show();
-            $('#div_sub_liberado').hide();
-            $('#div_empacadora').hide();
-            $('#div_estado_liberado_registro').hide();
-            $('#txt_liberado').hide();
-            $("#cbox_reproceso").prop('required',true);
-            $("#nro_empacadora").prop('required',false);
-            $("#cbox_sub").prop('required',false);
-            $("#cbox_zona_liberado").prop('required',false);
-            $("#txt_liberado").prop('required',false);
-            $("#txt_liberado").val('');
+            $('#div_kgramos').                  hide();
+            $('#div_cant_plancha').             show();
+            $('#div_reproceso_liberado').       show();
+            $('#div_sub_liberado').             hide();
+            $('#div_estado_liberado_registro'). hide();
+            $('#txt_liberado').                 hide();
+            $("#txt_liberado").                 val('');
             limpiar_codigo_rotos();
-           $('#txt_responsable').attr('placeholder', 'RESPONSABLE');
-           $('#txt_responsable').show();
+            $('#txt_responsable').attr('placeholder', 'RESPONSABLE');
+            $('#txt_responsable').show();
+            
+            $("#cbox_reproceso").       prop('required',true);
+            $("#cbox_sub").             prop('required',false);
+            $("#cbox_zona_liberado").   prop('required',false);
+            $("#cbox_sub").             prop('required',false);
 
-        }
+         }
 
 
         else if (tipo_huevo.val()==="8")
@@ -265,33 +338,30 @@
             $('#div_zona_liberado').hide();
             $('#div_reproceso_liberado').hide();
             $('#div_sub_liberado').show();
-            $('#div_empacadora').hide();
             $('#div_estado_liberado_registro').hide();
-            $('#txt_liberado').hide();
             $('#div_grupo_aviario_almacenamiento').show();
-            $("#cbox_zona_liberado").prop('required',false);
-            $("#cbox_reproceso").prop('required',false);
-            $("#txt_liberado").prop('required',false);
-            $("#tipo_aviario").prop('required',false);
-            $("#txt_liberado").val('');
-            $("#nro_empacadora").prop('required',false); 
             limpiar_codigo_rotos();
             $('#txt_responsable').attr('placeholder', 'RESPONSABLE');
             $('#txt_responsable').show();
+            $("#txt_liberado").val('');
+            
+            $("#cbox_zona_liberado").   prop('required',false);
+            $("#cbox_reproceso").       prop('required',false);
+            $("#tipo_aviario").         prop('required',false);
+            $("#cbox_sub").             prop('required',true);
         }
        
     }
     
                   
-                    function setear_codigo_rotos()
-                    {
-                    var mesa;
-                    mesa= $('#id_date').val()+"_"+$('#id_clasificadora').val();
-                    $('#cod_carrito').val(mesa);
-                        }
-    
-                    function limpiar_codigo_rotos(){
-        
-                    $('#cod_carrito').val('');
-        
-                                                        }
+    function setear_codigo_rotos()
+    {
+        var mesa;
+        mesa= $('#id_date').val()+"_"+$('#id_clasificadora').val();
+        $('#cod_carrito').val(mesa);
+    }
+
+    function limpiar_codigo_rotos()
+    {
+        $('#cod_carrito').val('');
+    }

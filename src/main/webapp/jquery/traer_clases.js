@@ -121,7 +121,7 @@
         $('#tabla_carromesa').DataTable();
                 }); }
 
-         function traer_detalle_eliminar(fecha){
+    function traer_detalle_eliminar(fecha){
                $.get(ruta_grillas+'grilla_eliminar.jsp',{fecha:fecha},function(res){
                    
                     $("#div_eliminar").html('');
@@ -130,18 +130,102 @@
                     
                     
     });  } 
-    function traer_registro(){
+    
+    function traer_registro()
+    {
         $("#contenido_2").html(""); 
         $.get(ruta_contenedores+'contenedor_registro.jsp',function(res){
         $("#contenido_registros").html('');
         $("#contenido_registros").html(res);
         $("#contenido").hide();
-        $('#calendario_registro').datepicker() ;
-        $('#fecha_puesta').datepicker();
-        inicializar_unidad_medida();
-        animacion_loading(); }); }
+         inicializar_unidad_medida();
+        $('.checkbox').bootstrapToggle();
+        cargar_estilo_calendario_insert('yyyy/mm/dd');
+        $("#tipo_huevo").           prop('required',true);
+        
+        $('#chkToggle_aviario').change(function () 
+        {  
+            $('#fecha_puesta').val("");
+            if ($(this).prop("checked") == true) 
+            {
+                 $('#cbox_aviarios').removeAttr('required');
+            }
+            else 
+            {
+                 $("#cbox_aviarios").prop('required', 'required');
+            }
+        });
+        $('#form-reprocesos').on('submit', function(event)
+        {
+            event.preventDefault();
+            procesar_lotes_rp();
+            event.stopPropagation();
+        }); 
 
+        }); 
+}
 
+function cargar_estilo_calendario_insert(format){
+    
+       $('.datepicker').pickadate({
+        // Escape any “rule” characters with an exclamation mark (!).
+        format: format,
+        formatSubmit:format,
+        hiddenPrefix: 'prefix__',
+        hiddenSuffix: '__suffix',
+        cancel: 'Cancelar',
+        clear: 'Limpiar',
+        done: 'Ok',
+        today: 'Hoy',
+        close: 'Cerrar',
+        max: true,
+        monthsFull: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+        monthsShort: ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'],
+        weekdaysFull: ['Domingo', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado'],
+        weekdaysShort: ['dom', 'lun', 'mar', 'mie', 'jue', 'vie', 'sab'],
+     });
+            
+}
+     function validar_fechaInicial_fechaFinal ()
+    {
+         $('#cbox_aviarios').html('');  
+        var fecha_clasificacion_inicial=$('#calendario_registro').val();
+        var fecha_clasificacion_final=$('#fecha_clas_final').val();
+        
+         var hora_inicial=$('#hora_desde').val();
+        var hora_final=$('#hora_hasta').val();
+        var minuto_final=$('#minuto_hasta').val();
+        var minuto_desde=$('#minuto_desde').val();
+        
+        var date_inicial=new Date(fecha_clasificacion_inicial+' '+hora_inicial+':'+minuto_desde+ ':00') ;
+        var date_final=new Date(fecha_clasificacion_final+' '+hora_final+':'+minuto_final+':00') ; 
+      
+         var date_inicial_consulta= fecha_clasificacion_inicial+' '+hora_inicial+':'+minuto_desde+ ':59.000';
+        var date_final_consulta= fecha_clasificacion_final+' '+hora_final+':'+minuto_final+':00.000';
+        
+        
+        if(fecha_clasificacion_inicial.length>0&&fecha_clasificacion_final.length>0&&hora_inicial.length>0&&hora_final.length>0)
+        {
+            if(date_inicial>date_final)
+            {
+               swal.fire({
+                        type: 'error',
+                        title: "FECHA DE CLASIFICACION INICIAL NO PUEDE SER MAYOR A LA FINAL.!!!",
+                        confirmButtonText: "CERRAR"
+                        });  
+                $('#fecha_clas_final').val('');
+               
+            }
+            else 
+            {
+                $.get(ruta_consultas+'consulta_aviarios_hora.jsp',{fecha_inicio:date_inicial_consulta,fecha_final:date_final_consulta},function(res)
+                {
+                  $('#cbox_aviarios').html(res.aviarios);  
+                }); 
+            }
+        }
+    }
+    
     function ir_registro_reproceso_tradicional(){
         $("#contenido_2").html(""); 
         $.get(ruta_contenedores+'contenedor_registro_tradicional.jsp',function(res){
@@ -151,7 +235,7 @@
         $('#calendario_registro').datepicker() ;
         $('#fecha_puesta').datepicker();
         inicializar_unidad_medida();
-        animacion_loading(); }); }
+        }); }
 
 
     function ir_registro_sp_tradicional(){
@@ -163,7 +247,7 @@
         $('#calendario_registro').datepicker() ;
         $('#fecha_puesta').datepicker();
         inicializar_unidad_medida();
-        animacion_loading(); }); }
+        }); }
 
 
     function traer_informe(){
@@ -234,7 +318,8 @@
         $("#contenido_registros").html('');
         $("#contenido_registros").html(res);
         $("#contenido").hide();
-        $('#calendario_informe').datepicker(); });  
+        cargar_estilo_calendario_insert('dd/mm/yyyy');
+          });  
         
     }  
     
@@ -621,57 +706,31 @@ traer_detalle_eliminar($('#calendario_eliminar').val())
     function cargar_unidad_medida() { 
 
        medida.children().remove();  
+        var nombre_option = new Array(); 
+        var valores = new Array();
+        var id_fecha= $('#id_date').val();
+        nombre_option[0] = "GRANEL"; 
+        valores[0] = "1";
+        for(var i=0; i< nombre_option.length; i++) 
+        {
+            medida.append('<option value="' + valores[i] + '">' +   nombre_option[i] + '</option>');
+        }
+         $('#cod_carrito').val("");
 
-    if (tipo_huevo.val()==="2"||tipo_huevo.val()==="3"||tipo_huevo.val()==="4"||tipo_huevo.val()==="5"
-       ||tipo_huevo.val()==="6"||tipo_huevo.val()==="SC"||tipo_huevo.val()==="7") { 
-         var nombre_option = new Array();
-         var cantidad = new Array();
-         nombre_option[0] = "CAJON"; 
-         cantidad[0] = "360"; 
-         nombre_option[1] = "CARRITO NORMAL";
-         cantidad[1] = "4320"; 
+        if (tipo_huevo.val()==="9"  ) 
+        {
+            $('#cod_carrito').val(id_fecha);
+        }
+    }  
 
-         for(var i=0; i< nombre_option.length; i++) {
-               medida.append('<option value="' + cantidad[i] + '">' +   nombre_option[i] + '</option>');
-         }
-    }
-
-     else if (tipo_huevo.val()==="1") {
-         var nombre_option = new Array(); 
-         var valores = new Array();
-         nombre_option[0] = "CAJON GIGANTE"; 
-         valores[0] = "180";
-
-          for(var i=0; i< nombre_option.length; i++) {
-              medida.append('<option value="' + valores[i] + '">' +   nombre_option[i] + '</option>');
-         }
-
-    }
-
-   else if (tipo_huevo.val()==="9" ||tipo_huevo.val()==="8"||tipo_huevo.val()==="RP") {
-         var nombre_option = new Array(); 
-         var valores = new Array();
-         var id_fecha= $('#id_date').val();
-         nombre_option[0] = "GRANEL"; 
-         valores[0] = "1";
-
-          for(var i=0; i< nombre_option.length; i++) {
-              medida.append('<option value="' + valores[i] + '">' +   nombre_option[i] + '</option>');
-         }
-
-         $('#cod_carrito').val(id_fecha);
-
-    }
-
-   }  
-
-    function limpiar_campos(){
+    function limpiar_campos()
+    {
        var gramos,kg,unidad,plancha;
-       unidad=$('#txt_unidad').val('');
-       plancha=$('#txt_plancha').val('');
-       gramos=$('#txt_gramos').val('');
-         kg=$('#txt_kg').val('');
-   }
+        unidad=$('#txt_unidad').val('');
+        plancha=$('#txt_plancha').val('');
+        gramos=$('#txt_gramos').val('');
+        kg=$('#txt_kg').val('');
+    }
    
     function detalle_reproceso(calendario,combo_disposicion){
         $.get(ruta_grillas+'grilla_reproceso.jsp',{calendario:calendario,combo_disposicion:combo_disposicion},function(res){

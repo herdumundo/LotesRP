@@ -4,7 +4,7 @@
     <div class="input-append">  
     <a>FECHA DE CLASIFICACION</a>  
         
-        <input id="calendario_reporte_reproceso" name="calendario_reporte_reproceso" data-format="dd/mm/yyyy"  width="276" required="true"  />
+    <input id="calendario_reporte_reproceso" name="calendario_reporte_reproceso" class="datepicker" required="true"  />
     
     
     </div> 
