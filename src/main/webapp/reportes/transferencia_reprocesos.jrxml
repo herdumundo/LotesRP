@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a3c59e02-0aeb-46ec-882e-0e917e329709">
 	<property name="ireport.zoom" value="1.3310000000000137"/>
-	<property name="ireport.x" value="0"/>
+	<property name="ireport.x" value="96"/>
 	<property name="ireport.y" value="0"/>
 	<style name="Colores">
 		<conditionalStyle>
@@ -46,6 +46,7 @@
 	<field name="tipo_transferencia" class="java.lang.String"/>
 	<field name="cantidad_planchas" class="java.lang.Integer"/>
 	<field name="unidades" class="java.math.BigDecimal"/>
+	<field name="TITULO" class="java.lang.String"/>
 	<variable name="cantidad_1" class="java.math.BigDecimal" calculation="Sum">
 		<variableExpression><![CDATA[$F{cantidad}]]></variableExpression>
 	</variable>
@@ -78,13 +79,6 @@
 			<line>
 				<reportElement x="440" y="0" width="1" height="46" uuid="7a8c0213-0a2e-4837-bda6-90f4b749a062"/>
 			</line>
-			<staticText>
-				<reportElement x="151" y="26" width="289" height="15" uuid="46d32706-27b1-4a0e-b192-24b09664d8d3"/>
-				<textElement textAlignment="Center">
-					<font fontName="Arial" size="13" isBold="true"/>
-				</textElement>
-				<text><![CDATA[TRANSFERENCIA DE REPROCESOS]]></text>
-			</staticText>
 			<staticText>
 				<reportElement x="97" y="4" width="41" height="26" uuid="d552e99a-2c93-4d00-9779-0c5d4876f6b8"/>
 				<textElement>
@@ -197,19 +191,15 @@ $F{destino}.equalsIgnoreCase("H")  ? "CYO-CCHH" :
 				<text><![CDATA[Camión:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="297" y="99" width="21" height="20" uuid="61d9aa0d-b94a-483a-932b-2a4dff71ca00"/>
-				<textFieldExpression><![CDATA[$F{id_camion}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="313" y="99" width="100" height="20" uuid="0f0397dd-afbc-44c9-8a1d-e467dde38d71"/>
+				<reportElement x="297" y="99" width="116" height="20" uuid="0f0397dd-afbc-44c9-8a1d-e467dde38d71"/>
 				<textFieldExpression><![CDATA[$F{camion}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="6" y="124" width="346" height="20" uuid="b8331689-1a7a-457d-b6e5-3efad8ae4e68"/>
-				<textElement>
-					<font fontName="Arial" size="13" isBold="false"/>
+				<reportElement x="151" y="25" width="290" height="20" uuid="a93f80eb-6dfe-4a2d-835e-081e43a3d68b"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="13" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{tipo_transferencia}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{TITULO}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>
@@ -242,13 +232,6 @@ $F{destino}.equalsIgnoreCase("H")  ? "CYO-CCHH" :
 					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Categoría]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="398" y="4" width="155" height="14" uuid="1aefc265-1a09-4cf0-b52c-1a40feef1600"/>
-				<textElement textAlignment="Center">
-					<font size="8" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Motivo]]></text>
 			</staticText>
 			<line>
 				<reportElement x="0" y="21" width="556" height="1" uuid="62c3c935-d303-4e82-b53e-0f0bc2666871"/>
@@ -290,6 +273,13 @@ $F{destino}.equalsIgnoreCase("H")  ? "CYO-CCHH" :
 					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Unidades]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="400" y="0" width="155" height="21" uuid="1aefc265-1a09-4cf0-b52c-1a40feef1600"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tipo de falla]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
@@ -374,7 +364,7 @@ $F{destino}.equalsIgnoreCase("H")  ? "CYO-CCHH" :
 		</band>
 	</detail>
 	<summary>
-		<band height="50">
+		<band height="52">
 			<rectangle>
 				<reportElement x="134" y="1" width="151" height="20" uuid="ecd9d0a2-8bcb-466a-8795-5abd6b1510fa"/>
 			</rectangle>

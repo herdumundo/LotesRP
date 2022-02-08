@@ -311,7 +311,46 @@ function cargar_estilo_calendario_insert(format){
         });
 
     }  
-  
+       function ir_transferencias_subproductos()
+    {
+        $.get(ruta_contenedores+'contenedor_transferencia_subproducto.jsp',function(res)
+        {
+            $("#contenido_registros").html('');
+            $("#contenido_registros").html(res);
+            $("#contenido").hide();
+        });
+
+    }
+    function ir_informe_pendientes_alimentacion()
+    {
+        $.get(ruta_contenedores+'contenedor_informe_pendientes_alimentacion.jsp',function(res)
+        {
+            $("#contenido_registros").html('');
+            $("#contenido_registros").html(res);
+            $("#contenido").hide();
+            llenar_grilla_pendientes_alimentacion();        
+        });
+
+    }
+   
+      function llenar_grilla_pendientes_alimentacion()
+    {
+        $.get(ruta_consultas+'consulta_gen_grilla_pendientes_alimentacion.jsp',function(res)
+        {
+            $("#div_grilla").html('');
+            $("#div_grilla").html(res.grilla);
+            $(".table").DataTable(
+                   {
+                    
+                    "pageLength": 100, 
+                    "language": {
+                    "sUrl": "jquery/Spanish.txt"
+        },
+                    });
+        });
+
+    }
+    
     function traer_contendor_pdf_reproceso(pagina)
     {
         $.get(ruta_contenedores+pagina+'.jsp',function(res){

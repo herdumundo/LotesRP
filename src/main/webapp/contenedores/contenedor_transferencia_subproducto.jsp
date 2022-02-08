@@ -17,22 +17,22 @@
     <script>
         $('#<%=area%>').hide();
     </script>
-    
+     <div class="form-control bg-info" style="font-weight: bold;color:black;"><center> REGISTRO DE TRANSFERENCIAS DE SUBPRODUCTOS.</center></div>  
       <br><br>
-    <a>Destino</a>
+       <a>Destino</a>
+
          <div class="input-group">
-            
              <select class="form-control" name="cbox_destino" id="cbox_destino" required>
                  <option    value=""       disabled="disabled"    selected="selected">DESTINO </option>
-               
-                 <option    id="O" value="O"  >LAVADO </option>
-                  
+                 <option    id="S" value="S"  >SUBPRODUCTO </option>
+        
+                 
              </select>
       
              </div> </div>
-        <a>Chofer</a>
+                            <a>Chofer</a>
 
-                <select style=" font-weight: bold" class="form-control" name="cbox_chofer" id="cbox_chofer" required> 
+    <select style=" font-weight: bold" class="form-control" name="cbox_chofer" id="cbox_chofer" required> 
                  <option    value=""       disabled="disabled"    selected="selected">CHOFER </option>
                 <% 
                     Connection cn2 = conexion2.crearConexion();
@@ -47,9 +47,7 @@
                  }
                 rs_chofer.close();%>
                 </select>  
-                <br>
                 <span class="input-group-addon">Camión</span>
- 
                 <select class="form-control" name="cbox_camion" id="cbox_camion" required>
                  <option    value=""       disabled="disabled"    selected="selected">CAMION </option>
                  <%
@@ -69,15 +67,15 @@
            <br>
            <div class="form-group">
             <div class="input-group">
-                <input type="number" placeholder="LOTE" name="txt_lote" id="txt_lote" class="form-control" onkeypress="cargar_datos_key_trans();"/>
+                <input type="number" placeholder="LOTE" name="txt_lote" id="txt_lote" class="form-control" onkeypress="cargar_datos_key_trans_subproducto();"/>
                  
             <span class="input-group-addon">-</span>
-            <input type="button" value="INGRESAR" name="btn_ingresar" id="btn_ingresar" onclick="consulta_lotes_transferencias_reprocesos($('#txt_lote').val());" class="form-control btn btn-primary"/>
+            <input type="button" value="INGRESAR" name="btn_ingresar" id="btn_ingresar" onclick="consulta_lotes_transferencias_subproductos($('#txt_lote').val());" class="form-control btn btn-primary"/>
 
             </div>
           </div>
          
-            <input  type="button" value="REGISTRAR" id="btn_registrar" name="btn_registrar" onclick="  enviar_datos_transferencia();"  class="form-control btn btn-danger" />
+            <input  type="button" value="REGISTRAR" id="btn_registrar" name="btn_registrar" onclick="enviar_datos_transferencia_subproductos();"  class="form-control btn btn-danger" />
                 
         <br>
         <div   class="row" id="divid"  >
@@ -94,8 +92,9 @@
                                 <th>UNIDADES</th>
                                 <th>FECHA PUESTA</th>
                                 <th>TIPO</th>
+                                <th>ESTADO COSTEO</th>
+                                <th>LOTE</th>
                                 <th>DETALLE</th>
-                                
                                 <th>ACCION</th>
                             </tr>
                         </thead>

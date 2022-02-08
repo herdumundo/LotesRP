@@ -23,7 +23,7 @@
                
                     
             int verificador_SAP=0;
-             rs_GM = fuente_GM.obtenerDato(" exec [mae_ptc_select_lotes_disponiblesTransferencias]  @area='"+area+"',@area_cch='"+area_cch+"',@cod_carrito='"+carro+"',@tipo_transferencia='REP'") ;
+             rs_GM = fuente_GM.obtenerDato(" exec [mae_ptc_select_lotes_disponiblesTransferencias]  @area='"+area+"',@area_cch='"+area_cch+"',@cod_carrito='"+carro+"',@tipo_transferencia='SP'") ;
         while(rs_GM.next())
         {      
             ob=new JSONObject();
@@ -32,7 +32,11 @@
             ob.put("cod_carrito", rs_GM.getString("cod_carrito"));
             ob.put("cantidad", rs_GM.getString("cantidad"));
             ob.put("fecha_puesta", rs_GM.getString("fecha_puesta"));
+            ob.put("estado_costeo", rs_GM.getString("estado_costeo"));
+            ob.put("cod_lote", rs_GM.getString("cod_lote"));
             ob.put("desFallaZona", rs_GM.getString("desFallaZona"));
+            
+            
             verificador_SAP++;
             jarray.put(ob);  
         }

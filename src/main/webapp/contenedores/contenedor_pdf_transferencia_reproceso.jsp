@@ -1,11 +1,11 @@
       <input type="hidden" id="tipo" name="tipo" value="RP">
-     <div class="form-control bg-info" style="font-weight: bold;color:black;"><center> GENERACION DE REPORTES DE TRANSFERENCIAS DE REPROCESOS.</center></div>  
+     <div class="form-control bg-info" style="font-weight: bold;color:black;"><center> GENERACION DE REPORTES DE TRANSFERENCIAS.</center></div>  
      <br>
     
      
      <div class="input-append">  
         <a>FECHA DE REGISTRO</a>
-        <input id="calendario_informe" name="calendario_informe" data-format="dd/mm/yyyy"  width="276" required="true"  />
+        <input id="calendario_informe" name="calendario_informe" class="datepicker"  width="276" required="true"  />
      </div> 
     
     <br> 

@@ -62,7 +62,7 @@
             <select class="form-control" name="cbox_reproceso" id="cbox_reproceso">
                 <OPTION value="-" selected >Selecciona tipo de reproceso</OPTION>
             <%  
-                ResultSet rs1 = fuente.obtenerDato("select * from fallas with(nolock) where area in ('ccho','"+area_format+"') and tipo in ('rep') and estado='A'");
+                ResultSet rs1 = fuente.obtenerDato("select * from fallas with(nolock)  where area in ('ccho','"+area_format+"') AND CODIGO NOT IN ('68','109','116') and tipo in ('rep') and estado='A'");
                 while(rs1.next()){ %>
             <OPTION VALUE="<%=rs1.getString("codigo")%>"><%=rs1.getString("desfallazona")%></OPTION>
             <% }%>

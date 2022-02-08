@@ -271,13 +271,11 @@
                     
         </select>
     </div>
-    <div class="form-group" id="div_grupo_aviario_almacenamiento">
+    <div class="form-group" id="div_grupo_aviario_almacenamiento" style="display: none">
         <div class="input-group">
             <select class="form-control"   name="tipo_aviario" id="tipo_aviario" required >
-                <OPTION selected value="">SELECCIONAR AVIARIO</OPTION>
-                <OPTION VALUE="M">M</OPTION>
-                <OPTION VALUE="T">T</OPTION>
-            </select>   
+                 <OPTION VALUE="M">M</OPTION>
+             </select>   
             <span class="input-group-addon">-</span>
         </div> 
     </div>    

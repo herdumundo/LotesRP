@@ -98,7 +98,7 @@
     <footer class="py-4 bg-light mt-auto fixed-bottom bg-dark">
         <div class="container-fluid">
                         <div class="d-flex align-items-center justify-content-between small">
-                            <div class="text-muted">Grupo Maehara 2021 V.1.0</div>
+                            <div class="text-muted">Grupo Maehara 2022 V.1.1</div>
                             <div>
                                  ·
                                 <a href="#">Centro de clasificaciones de huevos.</a>
@@ -125,6 +125,8 @@
     <script src="jquery/traer_clases.js?v=3.0" type="text/javascript"></script>
     <script src="jquery/formulas.js?v=3.0" type="text/javascript"></script>
     <script src="jquery/transferencia.js" type="text/javascript"></script>
+    	<script src="//datatables.net/download/build/nightly/jquery.dataTables.js"></script>
+    <script src="https://cdn.datatables.net/plug-ins/1.10.19/api/sum().js"></script>
     </div> 
 </body>
 
